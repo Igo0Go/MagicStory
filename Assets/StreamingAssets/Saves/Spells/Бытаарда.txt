@@ -1,0 +1,8 @@
+Name:Бытаарда
+Description:Дуга, что ранит и ослабляет цель
+TargetsCount:1
+SuccessPercent:75
+SpellForm:Relation
+Effect:[DamageEffect|30,1],[ChangeForceEffect|-25,1]
+
+

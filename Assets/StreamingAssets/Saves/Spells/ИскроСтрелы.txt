@@ -1,0 +1,7 @@
+Name:ИскроСтрелы
+Description:Достаточно точные искры, ранящие цель
+TargetsCount:5
+SuccessPercent:85
+SpellForm:Arrow
+Effect:[DamageEffect|5,1]
+

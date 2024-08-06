@@ -1,0 +1,8 @@
+Name:Чэлугер-Тухэрии
+Description:исцеляющая стрела, снимающая все проклятия
+TargetsCount:3
+SuccessPercent:60
+SpellForm:Arrow
+Effect:[HealEffect|10,1],[SetStateEffect|1,None,1]
+
+

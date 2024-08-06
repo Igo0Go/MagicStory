@@ -1,0 +1,14 @@
+Name:стрела ильматера
+Description:Гарантированно попадает в цель
+TargetsCount:1
+SuccessPercent:100
+SpellForm:Arrow
+Effect:[DamageEffect|5,1]
+
+Name:стрела ильматера
+Description:Гарантированно попадает в цель
+TargetsCount:1
+SuccessPercent:100
+SpellForm:Arrow
+Effect:[DamageEffect|5,1]
+

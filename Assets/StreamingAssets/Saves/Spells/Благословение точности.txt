@@ -1,0 +1,7 @@
+Name:Благословение точности
+Description:Связь ищет цель и даёт прибавку к точности
+TargetsCount:1
+SuccessPercent:65
+SpellForm:Relation
+Effect:[ChangeAccuracyEffect|5,1]
+
