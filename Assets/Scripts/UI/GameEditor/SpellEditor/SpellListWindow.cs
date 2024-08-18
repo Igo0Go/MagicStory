@@ -21,8 +21,8 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
     private GameObject loadSpellItemPrefab;
 
     [Space]
-    [SerializeField]
-    private MagicanHolder magicanHolder;
+    //[SerializeField]
+    //private MagicanHolder magicanHolder;
     [SerializeField]
     private Transform magianButtonContainer;
     [SerializeField]
@@ -38,12 +38,7 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
     {
         Center = center;
         DrawMagicanButtons();
-        ChoseMagican(magicanHolder.MagicanList[0]);
-    }
-
-    public void SaveSpellNamesInTheMagican()
-    {
-        currentMagican.SaveSpellNames();
+        //ChoseMagican(magicanHolder.MagicanList[0]);
     }
 
     private void OnEnable()
@@ -55,19 +50,19 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
     {
         currentMagican = magican;
         magicanNameText.text = magican.Name;
-        magicanImage.sprite = magican.CharacterPortrait;
+        //magicanImage.sprite = magican.CharacterPortrait;
 
         currentMagican.spellsBook.Clear();
 
-        foreach (var item in currentMagican.spellsFilesNames)
-        {
-            Spell spell = FileAccessUtility.LoadSpellFromTheFile(item, true);
+        //foreach (var item in currentMagican.spellsFilesNames)
+        //{
+        //    Spell spell = FileAccessUtility.LoadSpellFromTheFile(item, true);
 
-            if(spell != null)
-            {
-                currentMagican.spellsBook.Add(spell);
-            }
-        }
+        //    if(spell != null)
+        //    {
+        //        currentMagican.spellsBook.Add(spell);
+        //    }
+        //}
 
         UpdateSpellListItems();
     }
@@ -102,7 +97,7 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
         Center.formPanel.RebuildRune();
         Center.effectPanel.RebuildRunes();
         Center.targetCountPanel.RebuildRunes();
-        Center.changer.ToSpellEditorStateFast();
+        //Center.changer.ToSpellEditorStateFast();
     }
 
     public void OpenLoadSpellPanel()
@@ -148,10 +143,10 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
 
     private void DrawMagicanButtons()
     {
-        foreach(var item in magicanHolder.MagicanList)
-        {
-            Instantiate(magianButtonPrefab, magianButtonContainer).
-                GetComponent<CharacterButtonItem>().InitItem(item, this);
-        }
+        //foreach(var item in magicanHolder.MagicanList)
+        //{
+        //    Instantiate(magianButtonPrefab, magianButtonContainer).
+        //        GetComponent<CharacterButtonItem>().InitItem(item, this);
+        //}
     }
 }

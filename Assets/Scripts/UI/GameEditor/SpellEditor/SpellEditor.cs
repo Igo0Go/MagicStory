@@ -29,7 +29,7 @@ public class SpellEditor : MonoBehaviour, ISpellEditorUIPart
             if(CheckSpell(out s))
             {
                 ClearRunes();
-                Center.changer.ToSpellListState();
+                //Center.changer.ToSpellListState();
             }
             else
             {

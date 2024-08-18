@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class SpellEditorStateChanger : MonoBehaviour, ISpellEditorUIPart
 {
     [SerializeField]
-    private SpellEditorUIPanels uiPack;
+    private EditorUIStates uiPack;
 
     public SpellEditorUICenter Center { get; private set; }
 
@@ -14,95 +13,80 @@ public class SpellEditorStateChanger : MonoBehaviour, ISpellEditorUIPart
         this.Center = center;
     }
 
-    public void ToSpellListState()
+    public void ChangeViewToCharacter()
     {
-        uiPack.spellList.SetActive(true);
-        uiPack.spellEditorPanel.SetActive(false);
-        StopAllCoroutines();
-        StartCoroutine(ChangeViewCoroutine(uiPack.mainView, uiPack.spellList));
+        uiPack.DisactiveAllPanels();
+        uiPack.AllCamerasToMinPriority();
+        uiPack.characterPanel.SetActive(true);
+        uiPack.characterViewCamera.Priority = 1;
     }
 
-    public void ToSpellEditorStateFast()
+    public void ChangeViewToSpellForm()
     {
-        uiPack.spellList.SetActive(false);
-        uiPack.spellEditorPanel.SetActive(true);
+        uiPack.characterPanel.SetActive(false);
+        uiPack.spellEditorMainPanel.SetActive(true);
+        uiPack.spellEditorFormPanel.SetActive(true);
+        uiPack.spellEditorEffectPanel.SetActive(false);
+        uiPack.spellEditorTargetPanel.SetActive(false);
+
+        uiPack.AllCamerasToMinPriority();
+        uiPack.spellFormViewCamera.Priority = 1;
     }
 
-    public void ToSpellEditorState()
+    public void ChangeViewToSpellEffects()
     {
-        uiPack.spellList.SetActive(false);
-        StopAllCoroutines();
-        StartCoroutine(ChangeViewCoroutine(uiPack.mainView, uiPack.spellEditorPanel));
+        uiPack.characterPanel.SetActive(false);
+        uiPack.spellEditorMainPanel.SetActive(true);
+        uiPack.spellEditorFormPanel.SetActive(false);
+        uiPack.spellEditorEffectPanel.SetActive(true);
+        uiPack.spellEditorTargetPanel.SetActive(false);
+
+        uiPack.AllCamerasToMinPriority();
+        uiPack.spellEffectViewCamera.Priority = 1;
     }
 
-    public void ToSpellFormStage()
+    public void ChangeViewToSpellTargets()
     {
-        StopAllCoroutines();
-        StartCoroutine(ChangeViewCoroutine(uiPack.formRingView, uiPack.formPanel));
-    }
+        uiPack.characterPanel.SetActive(false);
+        uiPack.spellEditorMainPanel.SetActive(true);
+        uiPack.spellEditorFormPanel.SetActive(false);
+        uiPack.spellEditorEffectPanel.SetActive(false);
+        uiPack.spellEditorTargetPanel.SetActive(true);
 
-    public void ToSpellEffectsStage()
-    {
-        StopAllCoroutines();
-        StartCoroutine(ChangeViewCoroutine(uiPack.effectsRingView, uiPack.effectsPanel));
-    }
-
-    public void ToSpellTargetsStage()
-    {
-        StopAllCoroutines();
-        Center.targetCountPanel.ActivatePanel();
-        StartCoroutine(ChangeViewCoroutine(uiPack.targetsRingView, uiPack.targetsPanel));
-    }
-
-    private IEnumerator ChangeViewCoroutine(GameObject cameraPoint, GameObject screenAfterCange)
-    {
-            cameraPoint.SetActive(true);
-            uiPack.DisableAllEditorScreens();
-            yield return new WaitForSeconds(2);
-            uiPack.DisableCamerasWithoutCurrent(cameraPoint);
-            screenAfterCange.SetActive(true);
+        uiPack.AllCamerasToMinPriority();
+        uiPack.spellTargetsViewCamera.Priority = 1;
     }
 }
 
 [System.Serializable]
-public class SpellEditorUIPanels
+public class EditorUIStates
 {
-    public GameObject mainView;
-    public GameObject formRingView;
-    public GameObject effectsRingView;
-    public GameObject targetsRingView;
+    public CinemachineVirtualCamera characterViewCamera;
+    public CinemachineVirtualCamera spellFormViewCamera;
+    public CinemachineVirtualCamera spellEffectViewCamera;
+    public CinemachineVirtualCamera spellTargetsViewCamera;
 
-    [Space]
-    public GameObject spellList;
-    public GameObject spellEditorPanel;
-    public GameObject formPanel;
-    public GameObject effectsPanel;
-    public GameObject targetsPanel;
+    [Space(20)]
+    public GameObject characterPanel;
+    public GameObject spellEditorMainPanel;
+    public GameObject spellEditorFormPanel;
+    public GameObject spellEditorEffectPanel;
+    public GameObject spellEditorTargetPanel;
 
-    public void DisableAllEditorScreens()
+    public void AllCamerasToMinPriority()
     {
-        formPanel.SetActive(false);
-        effectsPanel.SetActive(false);
-        targetsPanel.SetActive(false);
+        characterViewCamera.Priority = 0;
+        spellFormViewCamera.Priority = 0;
+        spellEffectViewCamera.Priority = 0;
+        spellTargetsViewCamera.Priority = 0;
     }
 
-    public void DisableCamerasWithoutCurrent(GameObject camera)
+    public void DisactiveAllPanels()
     {
-        if(camera != mainView)
-        {
-            mainView.SetActive(false);
-        }
-        if(camera != formRingView)
-        {
-            formRingView.SetActive(false);
-        }
-        if(camera != effectsRingView)
-        {
-            effectsRingView.SetActive(false);
-        }
-        if (camera != targetsRingView)
-        {
-            targetsRingView.SetActive(false);
-        }
+        characterPanel.SetActive(false);
+        spellEditorMainPanel.SetActive(false);
+        spellEditorFormPanel.SetActive(false);
+        spellEditorEffectPanel.SetActive(false);
+        spellEditorTargetPanel.SetActive(false);
     }
 }

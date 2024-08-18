@@ -1,25 +1,25 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class SpellEditorUICenter : MonoBehaviour
 {
     public SpellRunnesHolder spellRunnesHolder;
-    public Spell CurrentSpell { get; set; }
+    public MagicanPortraitsHolder magicanPortraitsHolder;
 
-    public SpellListWindow spellListPanel;
-    public SpellEditor spellEditor;
-    public SpellEditorStateChanger changer;
-    public SpellFormEditorPanel formPanel;
-    public SpellEffectEditorPanel effectPanel;
-    public SpellTargetCountEditorPanel targetCountPanel;
+    public Magican CurrentMagican { get; set; }
 
     [SerializeField]
     private GameObject tipPanel;
     [SerializeField]
     private TMP_Text tipText;
 
+    public CharacterEditorPanel characterEditorPanel;
+
     public void Awake()
     {
+        characterEditorPanel.Init(this);
+
         spellEditor.Init(this);
         spellListPanel.Init(this);
         changer.Init(this);
@@ -30,9 +30,9 @@ public class SpellEditorUICenter : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
-            if(tipPanel.activeSelf)
+            if (tipPanel.activeSelf)
             {
                 tipPanel.SetActive(false);
             }
@@ -44,6 +44,19 @@ public class SpellEditorUICenter : MonoBehaviour
         tipPanel.SetActive(true);
         tipText.text = message;
     }
+
+
+    public Spell CurrentSpell { get; set; }
+
+
+
+
+    public SpellListWindow spellListPanel;
+    public SpellEditor spellEditor;
+    public SpellEditorStateChanger changer;
+    public SpellFormEditorPanel formPanel;
+    public SpellEffectEditorPanel effectPanel;
+    public SpellTargetCountEditorPanel targetCountPanel;
 }
 
 public interface ISpellEditorUIPart
