@@ -84,14 +84,15 @@ public class Spell
 
     public string GetSaveString()
     {
-        string result = string.Empty;
+        string result = "{";
 
-        result += nameof(Name) +":" + Name + Utility_SpellSaver.stringSeparator;
-        result += nameof(Description) + ":" + Description + Utility_SpellSaver.stringSeparator;
-        result += nameof(TargetsCount) + ":" + TargetsCount + Utility_SpellSaver.stringSeparator;
-        result += nameof(SuccessPercent) + ":" + SuccessPercent + Utility_SpellSaver.stringSeparator;
-        result += nameof(SpellForm) + ":" + SpellForm.GetSaveString() + Utility_SpellSaver.stringSeparator;
-        result += nameof(Effect) + (Effect == null ? "null" : (":" + Effect.GetSaveString() + Utility_SpellSaver.stringSeparator));
-        return result;
+        result += nameof(Name) +":" + Name + FileAccessUtility.stringPartSeparator;
+        result += nameof(Description) + ":" + Description + FileAccessUtility.stringPartSeparator;
+        result += nameof(TargetsCount) + ":" + TargetsCount + FileAccessUtility.stringPartSeparator;
+        result += nameof(SuccessPercent) + ":" + SuccessPercent + FileAccessUtility.stringPartSeparator;
+        result += nameof(SpellForm) + ":" + SpellForm.GetSaveString() + FileAccessUtility.stringPartSeparator;
+        result += nameof(Effect) + (Effect == null ? "null" : 
+            (":" + Effect.GetSaveString() + FileAccessUtility.stringPartSeparator));
+        return result + "}";
     }
 }

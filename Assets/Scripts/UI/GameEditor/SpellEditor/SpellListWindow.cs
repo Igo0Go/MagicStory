@@ -61,7 +61,7 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
 
         foreach (var item in currentMagican.spellsFilesNames)
         {
-            Spell spell = Utility_SpellSaver.LoadSpellFromTheFile(item, true);
+            Spell spell = FileAccessUtility.LoadSpellFromTheFile(item, true);
 
             if(spell != null)
             {
@@ -107,7 +107,7 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
 
     public void OpenLoadSpellPanel()
     {
-        List<string> fileNames = Utility_SpellSaver.GetAllSpellFilesNames();
+        List<string> fileNames = FileAccessUtility.GetAllSpellFilesNames();
 
         LoadSpellPanel.SetActive(true);
 
@@ -121,6 +121,11 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
             Instantiate(loadSpellItemPrefab, loadSpellContainer).
                 GetComponent<SpellListLoadButtonItem>().InitItem(fileName, this);
         }
+    }
+
+    public void SaveMagicanToFile()
+    {
+        FileAccessUtility.SaveMagicanInTheFile(currentMagican, currentMagican.Name);
     }
 
     private void UpdateSpellListItems()

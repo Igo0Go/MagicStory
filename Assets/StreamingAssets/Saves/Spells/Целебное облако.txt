@@ -1,7 +1,0 @@
-Name:Целебное облако
-Description:Облако, что распространяется по области и лечит всех, кто попал в него
-TargetsCount:5
-SuccessPercent:60
-SpellForm:Cloud
-Effect:[HealEffect|15,1]
-

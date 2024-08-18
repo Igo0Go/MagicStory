@@ -72,9 +72,8 @@ public class ChangeInitiativeEffect : SpellEffect
         if (buferEffect.insideEffect != null)
         {
             buferEffect = buferEffect.insideEffect;
-            result += "," + buferEffect.GetSaveString();
+            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetSaveString();
         }
-        result += Utility_SpellSaver.stringSeparator;
         return result;
     }
 }

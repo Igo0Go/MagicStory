@@ -3,9 +3,11 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 
-public static class Utility_SpellSaver
+public static class FileAccessUtility
 {
     public static string stringSeparator = "\n";
+    public static string stringPartSeparator = "><";
+    public static string propertyPartSeparator = "_";
 
     public static void SaveSpellInTheFile(Spell spell, string fileName)
     {
@@ -20,7 +22,7 @@ public static class Utility_SpellSaver
             File.Create(filePath).Close();
         }
 
-        using (TextWriter writer = new StreamWriter(filePath, true))
+        using (TextWriter writer = new StreamWriter(filePath, false))
         {
             writer.Write(saveString);
         }
@@ -55,7 +57,10 @@ public static class Utility_SpellSaver
             info = reader.ReadToEnd();
         }
 
-        string[] SpellProperties = info.Split(stringSeparator, StringSplitOptions.RemoveEmptyEntries);
+        char[] c = { '{', '}' };
+        info = info.Split(c, StringSplitOptions.RemoveEmptyEntries)[0];
+
+        string[] SpellProperties = info.Split(stringPartSeparator, StringSplitOptions.RemoveEmptyEntries);
 
         foreach (string SpellProperty in SpellProperties)
         {
@@ -130,7 +135,7 @@ public static class Utility_SpellSaver
     }
     private static SpellEffect GetSpellEffect(string effectString)
     {
-        string[] strings = effectString.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] strings = effectString.Split("|" , StringSplitOptions.RemoveEmptyEntries);
 
         if (strings[0].Equals(nameof(DamageEffect))) 
         {
@@ -212,4 +217,42 @@ public static class Utility_SpellSaver
 
         return null;
     }
+
+    public static void SaveMagicanInTheFile(Magican magican, string fileName)
+    {
+        string saveString = magican.GetSaveString();
+
+        string filePath = Path.Combine(Application.streamingAssetsPath, "Saves", "Magicans", fileName + ".txt");
+
+        Debug.Log(filePath);
+
+        if (!File.Exists(filePath))
+        {
+            File.Create(filePath).Close();
+        }
+
+        using (TextWriter writer = new StreamWriter(filePath, false))
+        {
+            writer.Write(saveString);
+        }
+    }
+
+    public static Magican LoadMagicanFromtheFile(string fileName, bool nameOnly)
+    {
+        if (nameOnly)
+        {
+            fileName = Path.Combine(Application.streamingAssetsPath, "Saves", "Magicans", fileName + ".txt");
+        }
+
+        string info = string.Empty;
+        using (StreamReader reader = new StreamReader(fileName))
+        {
+            info = reader.ReadToEnd();
+        }
+
+
+
+        return Magican.GetMagican(info);
+    }
+
 }

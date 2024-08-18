@@ -73,7 +73,7 @@ public class SpellListItem : MonoBehaviour
 
     public void SaveSpell()
     {
-        Utility_SpellSaver.SaveSpellInTheFile(spell, spell.Name);
+        FileAccessUtility.SaveSpellInTheFile(spell, spell.Name);
     }
 
     private void CreateEffectItem(SpellEffect spellEffect)

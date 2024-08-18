@@ -1,7 +1,0 @@
-Name:Исцеляющая аура
-Description:Магическая ткань, окутывающая цель и исцеляющая её
-TargetsCount:1
-SuccessPercent:70
-SpellForm:Aura
-Effect:[HealEffect|20,1]
-

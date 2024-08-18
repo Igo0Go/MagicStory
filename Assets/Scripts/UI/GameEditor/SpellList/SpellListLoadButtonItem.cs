@@ -20,6 +20,6 @@ public class SpellListLoadButtonItem : MonoBehaviour
 
     public void LoadSpell()
     {
-        spellListWindow.AddSpell(Utility_SpellSaver.LoadSpellFromTheFile(fileName, false));
+        spellListWindow.AddSpell(FileAccessUtility.LoadSpellFromTheFile(fileName, false));
     }
 }

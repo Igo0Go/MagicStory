@@ -1,8 +1,0 @@
-Name:тангас
-Description:магическая ткань, что ускоряет реакцию и защищает от ран
-TargetsCount:2
-SuccessPercent:80
-SpellForm:Aura
-Effect:[ChangeInitiativeEffect|1,1],[SetStateEffect|2,Shield,1]
-
-
