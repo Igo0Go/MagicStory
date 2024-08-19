@@ -7,17 +7,17 @@ public class CharacterButtonItem : MonoBehaviour
     private TMP_Text magicanNameText;
 
     private Magican magican;
-    private SpellListWindow spellListWindow;
+    private CharacterEditorPanel characterEditorPanel;
 
-    public void InitItem(Magican magican, SpellListWindow spellListWindow)
+    public void InitItem(Magican magican, CharacterEditorPanel characterEditorPanel)
     {
         this.magican = magican;
-        this.spellListWindow = spellListWindow;
+        this.characterEditorPanel = characterEditorPanel;
         magicanNameText.text = magican.Name;
     }
 
     public void ChoseThisMagican()
     {
-        spellListWindow.ChoseMagican(magican);
+        characterEditorPanel.EditCharacter(magican);
     }
 }

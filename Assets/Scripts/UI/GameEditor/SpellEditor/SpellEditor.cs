@@ -29,7 +29,8 @@ public class SpellEditor : MonoBehaviour, ISpellEditorUIPart
             if(CheckSpell(out s))
             {
                 ClearRunes();
-                //Center.changer.ToSpellListState();
+                Center.spellListPanel.DrawCurrentMagicanSpells();
+                Center.changer.ChangeViewToCharacter();
             }
             else
             {

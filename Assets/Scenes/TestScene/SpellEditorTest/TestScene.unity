@@ -677,7 +677,7 @@ RectTransform:
   m_AnchorMin: {x: 0.038746983, y: 0.6175327}
   m_AnchorMax: {x: 0.038746983, y: 1}
   m_AnchoredPosition: {x: -0, y: -0.31090164}
-  m_SizeDelta: {x: 49.84356, y: 0.6216965}
+  m_SizeDelta: {x: 0, y: 0.6216965}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &51254427
 MonoBehaviour:
@@ -743,9 +743,14 @@ GameObject:
   - component: {fileID: 51860017}
   - component: {fileID: 51860016}
   - component: {fileID: 51860015}
-  - component: {fileID: 51860019}
+  - component: {fileID: 51860027}
   - component: {fileID: 51860020}
   - component: {fileID: 51860021}
+  - component: {fileID: 51860022}
+  - component: {fileID: 51860026}
+  - component: {fileID: 51860025}
+  - component: {fileID: 51860024}
+  - component: {fileID: 51860023}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -838,29 +843,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &51860019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 51860014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a58a3e997e5a554594dad14045912ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spellRunnesHolder: {fileID: 11400000, guid: 725f46ff73be78e4f8d1775a0c22eff3, type: 2}
-  magicanPortraitsHolder: {fileID: 11400000, guid: cc6b602106cc5624eb5334bda8a2edf9, type: 2}
-  tipPanel: {fileID: 1979861342}
-  tipText: {fileID: 757027927}
-  characterEditorPanel: {fileID: 51860021}
-  spellListPanel: {fileID: 2072174176}
-  spellEditor: {fileID: 976716565}
-  changer: {fileID: 51860020}
-  formPanel: {fileID: 976716568}
-  effectPanel: {fileID: 976716567}
-  targetCountPanel: {fileID: 976716566}
 --- !u!114 &51860020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -905,6 +887,115 @@ MonoBehaviour:
   accuracySlider: {fileID: 734720366}
   initiativeInputField: {fileID: 0}
   characterPortrait: {fileID: 1423626574}
+--- !u!114 &51860022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51860014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b1e3937f5327847935e30bcbe2277a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellItemsContainer: {fileID: 1164236034}
+  spellItemPrefab: {fileID: 5703782523262189897, guid: 781acf1bbaca98a4f80c64c67c758405, type: 3}
+  LoadSpellPanel: {fileID: 1332748111}
+  loadSpellContainer: {fileID: 1830645173}
+  loadSpellItemPrefab: {fileID: 8096990538041425782, guid: d7637017ce3599146930f53becf294da, type: 3}
+--- !u!114 &51860023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51860014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08d0ff56a1557a847a85acc3ac28c1bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speleTargetRunePrefab: {fileID: 2221920749295645223, guid: 81bed152613945c47af5e57d57659fa6, type: 3}
+  spellTargetsRingPrefab: {fileID: 401291784}
+  targetsCountText: {fileID: 1657747635}
+  AddTargetButton: {fileID: 761677179}
+  RemoveTargetButton: {fileID: 878088100}
+  nameInputField: {fileID: 211846148}
+  descriptionInputField: {fileID: 1111089689}
+--- !u!114 &51860024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51860014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b272557c146653a4c8e3d56b5e14a29b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellEffectItemsContent: {fileID: 962596538}
+  spellRingEffectTransform: {fileID: 1752176937}
+  spellRingEffectPrefab: {fileID: 928594819497032578, guid: 74a43d7392014ab4bb4e803abe36cc70, type: 3}
+  damageEffectUIItemPrefab: {fileID: 504480946634072862, guid: 8185c086efedb2647a85166d8e8916b7, type: 3}
+  healEffectUIItemPrefab: {fileID: 1346250322877781534, guid: b9766742c3871fe4ea7ab098edc2088a, type: 3}
+  changeAccuracyEffectUIItemPrefab: {fileID: 4600017230854937199, guid: b61623992dd05984296ef8dbcd5a69d4, type: 3}
+  changeForceEffectUIItemPrefab: {fileID: 4892107673063225677, guid: 98a8aa0ab2ac5f34b82b7a4593d27b00, type: 3}
+  changeInitiativeEffectUIItemPrefab: {fileID: 2889293724687546347, guid: 6ff6f04004e350b4886e3bd98cf7c30a, type: 3}
+  setStateEffectUIItemPrefab: {fileID: 889954151321814838, guid: 5d5dcb78fb3951246872847d0fe538eb, type: 3}
+--- !u!114 &51860025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51860014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b419b50bc0b8f4e82972bb8c4de964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  percentSlider: {fileID: 1887805445}
+  percentInputField: {fileID: 64201255}
+  formDescriptionText: {fileID: 853100910}
+  formSpriteRenderer: {fileID: 39593368}
+--- !u!114 &51860026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51860014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cf6a0fa10d78a4eaa0fe03a78df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellForceRequaredText: {fileID: 1454583141}
+--- !u!114 &51860027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51860014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a58a3e997e5a554594dad14045912ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellRunnesHolder: {fileID: 11400000, guid: 725f46ff73be78e4f8d1775a0c22eff3, type: 2}
+  magicanPortraitsHolder: {fileID: 11400000, guid: cc6b602106cc5624eb5334bda8a2edf9, type: 2}
+  tipPanel: {fileID: 1979861342}
+  tipText: {fileID: 757027927}
+  characterEditorPanel: {fileID: 51860021}
+  spellListPanel: {fileID: 51860022}
+  spellEditor: {fileID: 51860026}
+  changer: {fileID: 51860020}
+  formPanel: {fileID: 51860025}
+  effectPanel: {fileID: 51860024}
+  targetCountPanel: {fileID: 51860023}
 --- !u!1 &52572936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,7 +1219,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 51860020}
         m_TargetAssemblyTypeName: SpellEditorStateChanger, Assembly-CSharp
-        m_MethodName: ToSpellTargetsStage
+        m_MethodName: ChangeViewToSpellTargets
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1211,10 +1302,10 @@ RectTransform:
   m_Father: {fileID: 1103979367}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5, y: -50.141846}
-  m_SizeDelta: {x: 240.85107, y: 90.28369}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 240.85107, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &58655191
 MonoBehaviour:
@@ -1260,8 +1351,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2072174176}
-        m_TargetAssemblyTypeName: SpellList, Assembly-CSharp
+      - m_Target: {fileID: 51860022}
+        m_TargetAssemblyTypeName: SpellListWindow, Assembly-CSharp
         m_MethodName: CreateNewSpell
         m_Mode: 1
         m_Arguments:
@@ -3049,7 +3140,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3341,7 +3432,7 @@ RectTransform:
   m_AnchorMin: {x: 0.038746983, y: 0}
   m_AnchorMax: {x: 0.038746983, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 51.87683, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &235872212
 MonoBehaviour:
@@ -3615,9 +3706,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976716567}
+      - m_Target: {fileID: 51860024}
         m_TargetAssemblyTypeName: SpellEffectEditorPanel, Assembly-CSharp
-        m_MethodName: AddNewStateMindControllEffect
+        m_MethodName: AddNewStateShieldEffect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3911,7 +4002,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976716568}
+      - m_Target: {fileID: 51860025}
         m_TargetAssemblyTypeName: SpellFormEditorPanel, Assembly-CSharp
         m_MethodName: SetCloudForm
         m_Mode: 1
@@ -4433,7 +4524,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: -30}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &346069968
 MonoBehaviour:
@@ -4455,7 +4546,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 13dbe3e19f5da6849a01f0f4678e8f01, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ade05db2a15e3764ab8fa5fa7aabe85f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5012,7 +5103,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976716568}
+      - m_Target: {fileID: 51860025}
         m_TargetAssemblyTypeName: SpellFormEditorPanel, Assembly-CSharp
         m_MethodName: SetRelationForm
         m_Mode: 1
@@ -5309,10 +5400,10 @@ RectTransform:
   m_Father: {fileID: 1920793178}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.2857143, y: 0}
-  m_AnchorMax: {x: 0.2857143, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 24.474567, y: -10}
+  m_SizeDelta: {x: 0, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &477321837
 MonoBehaviour:
@@ -5537,7 +5628,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: -30}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &523620894
 MonoBehaviour:
@@ -5559,7 +5650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 89f3171d2ad4b8c468c652be9f406f5b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14506ebdc6dbbdc4a82938d5449c7d98, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6004,7 +6095,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976716568}
+      - m_Target: {fileID: 51860025}
         m_TargetAssemblyTypeName: SpellFormEditorPanel, Assembly-CSharp
         m_MethodName: SetAruraForm
         m_Mode: 1
@@ -7013,9 +7104,9 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: -17}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &738503089
 MonoBehaviour:
@@ -7585,7 +7676,7 @@ GameObject:
   - component: {fileID: 761677180}
   - component: {fileID: 761677179}
   m_Layer: 5
-  m_Name: btn_Addtarget
+  m_Name: btn_AddTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7935,7 +8026,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976716567}
+      - m_Target: {fileID: 51860024}
         m_TargetAssemblyTypeName: SpellEffectEditorPanel, Assembly-CSharp
         m_MethodName: AddNewChangeAccuracyEffect
         m_Mode: 1
@@ -8123,7 +8214,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976716567}
+      - m_Target: {fileID: 51860024}
         m_TargetAssemblyTypeName: SpellEffectEditorPanel, Assembly-CSharp
         m_MethodName: AddNewChangeForceEffect
         m_Mode: 1
@@ -8468,7 +8559,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8525,7 +8616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &837667774
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9430,9 +9521,9 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: -17}
+  m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &901157640
 MonoBehaviour:
@@ -9633,9 +9724,9 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 20}
+  m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &926077065
 MonoBehaviour:
@@ -9908,7 +9999,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976716567}
+      - m_Target: {fileID: 51860024}
         m_TargetAssemblyTypeName: SpellEffectEditorPanel, Assembly-CSharp
         m_MethodName: AddNewHealEffect
         m_Mode: 1
@@ -10059,7 +10150,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 51860020}
         m_TargetAssemblyTypeName: SpellEditorStateChanger, Assembly-CSharp
-        m_MethodName: ToSpellFormStage
+        m_MethodName: ChangeViewToSpellForm
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10428,10 +10519,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 976716564}
-  - component: {fileID: 976716565}
-  - component: {fileID: 976716568}
-  - component: {fileID: 976716567}
-  - component: {fileID: 976716566}
   m_Layer: 5
   m_Name: grp_SpellEditorScreen
   m_TagString: Untagged
@@ -10460,75 +10547,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &976716565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 976716563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24cf6a0fa10d78a4eaa0fe03a78df87e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spellForceRequaredText: {fileID: 1454583141}
---- !u!114 &976716566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 976716563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08d0ff56a1557a847a85acc3ac28c1bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speleTargetRunePrefab: {fileID: 2221920749295645223, guid: 81bed152613945c47af5e57d57659fa6, type: 3}
-  spellTargetsRingPrefab: {fileID: 401291784}
-  targetsCountText: {fileID: 1657747635}
-  AddTargetButton: {fileID: 761677179}
-  RemoveTargetButton: {fileID: 878088100}
-  nameInputField: {fileID: 211846148}
-  descriptionInputField: {fileID: 1111089689}
---- !u!114 &976716567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 976716563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b272557c146653a4c8e3d56b5e14a29b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spellEffectItemsContent: {fileID: 962596538}
-  spellRingEffectTransform: {fileID: 1752176937}
-  spellRingEffectPrefab: {fileID: 928594819497032578, guid: 74a43d7392014ab4bb4e803abe36cc70, type: 3}
-  damageEffectUIItemPrefab: {fileID: 504480946634072862, guid: 8185c086efedb2647a85166d8e8916b7, type: 3}
-  healEffectUIItemPrefab: {fileID: 1346250322877781534, guid: b9766742c3871fe4ea7ab098edc2088a, type: 3}
-  changeAccuracyEffectUIItemPrefab: {fileID: 4600017230854937199, guid: b61623992dd05984296ef8dbcd5a69d4, type: 3}
-  changeForceEffectUIItemPrefab: {fileID: 4892107673063225677, guid: 98a8aa0ab2ac5f34b82b7a4593d27b00, type: 3}
-  changeInitiativeEffectUIItemPrefab: {fileID: 2889293724687546347, guid: 6ff6f04004e350b4886e3bd98cf7c30a, type: 3}
-  setStateEffectUIItemPrefab: {fileID: 889954151321814838, guid: 5d5dcb78fb3951246872847d0fe538eb, type: 3}
---- !u!114 &976716568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 976716563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12b419b50bc0b8f4e82972bb8c4de964, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  percentSlider: {fileID: 1887805445}
-  percentInputField: {fileID: 64201255}
-  formDescriptionText: {fileID: 853100910}
-  formSpriteRenderer: {fileID: 39593368}
 --- !u!1 &989667699
 GameObject:
   m_ObjectHideFlags: 0
@@ -10758,7 +10776,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: -30}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1031826409
 MonoBehaviour:
@@ -10780,7 +10798,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6b4d731bb49028047a4a8c4c1fa3bc4f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5101893be1c33c64aaf5d4761917cf11, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10949,7 +10967,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: -30}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1045571722
 MonoBehaviour:
@@ -10971,7 +10989,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c2d628ee785c7ea4eacc32eed00eb3cb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8b0f4350461314a4d9ac384a548bc171, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11355,10 +11373,10 @@ RectTransform:
   m_Father: {fileID: 1103979367}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 681.1733, y: -50.141846}
-  m_SizeDelta: {x: 240.85107, y: 90.28369}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 240.85107, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1107543801
 MonoBehaviour:
@@ -11404,7 +11422,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2072174176}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SpellListWindow, Assembly-CSharp
         m_MethodName: SaveMagicanToFile
         m_Mode: 1
@@ -12571,7 +12589,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976716567}
+      - m_Target: {fileID: 51860024}
         m_TargetAssemblyTypeName: SpellEffectEditorPanel, Assembly-CSharp
         m_MethodName: AddNewDamageEffect
         m_Mode: 1
@@ -12858,7 +12876,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.2857143, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13712,7 +13730,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1375595303}
-  - component: {fileID: 1375595304}
   m_Layer: 5
   m_Name: grp_CharacterScreen
   m_TagString: Untagged
@@ -13742,27 +13759,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1375595304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375595302}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62b1e3937f5327847935e30bcbe2277a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spellItemsContainer: {fileID: 0}
-  spellItemPrefab: {fileID: 5703782523262189897, guid: 781acf1bbaca98a4f80c64c67c758405, type: 3}
-  LoadSpellPanel: {fileID: 0}
-  loadSpellContainer: {fileID: 0}
-  loadSpellItemPrefab: {fileID: 8096990538041425782, guid: d7637017ce3599146930f53becf294da, type: 3}
-  magianButtonContainer: {fileID: 567090736}
-  magianButtonPrefab: {fileID: 6105215088120950945, guid: 309c47c9a2b53394fb91c598de6d24e6, type: 3}
-  magicanNameText: {fileID: 0}
-  magicanImage: {fileID: 1423626574}
 --- !u!1 &1381815894
 GameObject:
   m_ObjectHideFlags: 0
@@ -14085,9 +14081,9 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30.244934, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1423626573
 MonoBehaviour:
@@ -14611,7 +14607,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 51860020}
         m_TargetAssemblyTypeName: SpellEditorStateChanger, Assembly-CSharp
-        m_MethodName: ToSpellEffectsStage
+        m_MethodName: ChangeViewToSpellEffects
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14698,7 +14694,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0.14247201}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 105.07192, y: 0.5849991}
+  m_SizeDelta: {x: 0, y: 0.5849991}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1529291008
 MonoBehaviour:
@@ -15488,7 +15484,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: -30}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1617885703
 MonoBehaviour:
@@ -15510,7 +15506,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6c319f621431374fbe42955944e2d17, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb1ad46e36ed25d42aaa7949f5d28181, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15825,7 +15821,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976716567}
+      - m_Target: {fileID: 51860024}
         m_TargetAssemblyTypeName: SpellEffectEditorPanel, Assembly-CSharp
         m_MethodName: AddNewChangeInitiativeEffect
         m_Mode: 1
@@ -16806,7 +16802,7 @@ RectTransform:
   m_AnchorMin: {x: 0.038746983, y: 0}
   m_AnchorMax: {x: 0.038746983, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 51.956787, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1750208257
 MonoBehaviour:
@@ -17335,7 +17331,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976716568}
+      - m_Target: {fileID: 51860025}
         m_TargetAssemblyTypeName: SpellFormEditorPanel, Assembly-CSharp
         m_MethodName: SetArrowForm
         m_Mode: 1
@@ -18581,7 +18577,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: -30}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2003228161
 MonoBehaviour:
@@ -18603,7 +18599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f742aa32737423346b5593e68ef83d2a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8278512fb23542743ace16b4a8274c52, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -18823,10 +18819,10 @@ RectTransform:
   m_Father: {fileID: 1103979367}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 343.08664, y: -50.141846}
-  m_SizeDelta: {x: 240.85107, y: 90.28369}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 240.85107, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2050013022
 MonoBehaviour:
@@ -18872,7 +18868,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2072174176}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SpellListWindow, Assembly-CSharp
         m_MethodName: OpenLoadSpellPanel
         m_Mode: 1
@@ -19058,7 +19054,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2072174175}
-  - component: {fileID: 2072174176}
   m_Layer: 5
   m_Name: grp_SpellList
   m_TagString: Untagged
@@ -19089,27 +19084,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.099975586, y: 0}
   m_SizeDelta: {x: -0.5800171, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2072174176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2072174174}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62b1e3937f5327847935e30bcbe2277a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spellItemsContainer: {fileID: 1164236034}
-  spellItemPrefab: {fileID: 5703782523262189897, guid: 781acf1bbaca98a4f80c64c67c758405, type: 3}
-  LoadSpellPanel: {fileID: 1332748111}
-  loadSpellContainer: {fileID: 1830645173}
-  loadSpellItemPrefab: {fileID: 8096990538041425782, guid: d7637017ce3599146930f53becf294da, type: 3}
-  magianButtonContainer: {fileID: 0}
-  magianButtonPrefab: {fileID: 6105215088120950945, guid: 309c47c9a2b53394fb91c598de6d24e6, type: 3}
-  magicanNameText: {fileID: 0}
-  magicanImage: {fileID: 0}
 --- !u!1 &2072888472
 GameObject:
   m_ObjectHideFlags: 0
@@ -19284,7 +19258,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0.14247201}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 105.07192, y: 0.5849991}
+  m_SizeDelta: {x: 0, y: 0.5849991}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &2093528717
 MonoBehaviour:

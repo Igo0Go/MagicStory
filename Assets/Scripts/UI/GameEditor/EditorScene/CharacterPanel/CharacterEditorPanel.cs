@@ -92,6 +92,7 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
         healthInputField.text = magican.Health.ToString();
         accuracyInputField.text = magican.Accuracy.ToString();
         characterPortrait.sprite = Center.magicanPortraitsHolder.portraits[magican.CharacterPortraitIndex];
+        Center.spellListPanel.DrawCurrentMagicanSpells();
     }
 
     private void OnNameInputFieldChanged(string value)
@@ -155,5 +156,12 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
         int accuracy = (int)value;
         Center.CurrentMagican.SetDefaultAccuracy(accuracy);
         accuracyInputField.text = accuracy.ToString();
+    }
+
+
+
+    private void LoadAllMagicans()
+    {
+
     }
 }

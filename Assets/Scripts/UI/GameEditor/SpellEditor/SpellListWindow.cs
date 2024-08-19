@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
 {
@@ -20,64 +18,35 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
     [SerializeField]
     private GameObject loadSpellItemPrefab;
 
-    [Space]
-    //[SerializeField]
-    //private MagicanHolder magicanHolder;
-    [SerializeField]
-    private Transform magianButtonContainer;
-    [SerializeField]
-    private GameObject magianButtonPrefab;
-    [SerializeField]
-    private TMP_Text magicanNameText;
-    [SerializeField]
-    private Image magicanImage;
-
-    private Magican currentMagican;
-
     public void Init(SpellEditorUICenter center)
     {
         Center = center;
-        DrawMagicanButtons();
-        //ChoseMagican(magicanHolder.MagicanList[0]);
     }
 
-    private void OnEnable()
+    public void DrawCurrentMagicanSpells()
     {
-        UpdateSpellListItems();
-    }
+        for (int i = 0; i < spellItemsContainer.childCount; i++)
+        {
+            Destroy(spellItemsContainer.GetChild(i).gameObject);
+        }
 
-    public void ChoseMagican(Magican magican)
-    {
-        currentMagican = magican;
-        magicanNameText.text = magican.Name;
-        //magicanImage.sprite = magican.CharacterPortrait;
-
-        currentMagican.spellsBook.Clear();
-
-        //foreach (var item in currentMagican.spellsFilesNames)
-        //{
-        //    Spell spell = FileAccessUtility.LoadSpellFromTheFile(item, true);
-
-        //    if(spell != null)
-        //    {
-        //        currentMagican.spellsBook.Add(spell);
-        //    }
-        //}
-
-        UpdateSpellListItems();
+        foreach (Spell spell in Center.CurrentMagican.spellsBook)
+        {
+            CreateSpellItem(spell);
+        }
     }
 
     public void CreateNewSpell()
     {
-        currentMagican.spellsBook.Add(new Spell());
-        ToSpellEditorWithSpell(currentMagican.spellsBook[currentMagican.spellsBook.Count-1]);
+        Center.CurrentMagican.spellsBook.Add(new Spell());
+        ToSpellEditorWithSpell(Center.CurrentMagican.spellsBook[Center.CurrentMagican.spellsBook.Count-1]);
     }
 
     public void AddSpell(Spell spell)
     {
         LoadSpellPanel.SetActive(false);
-        currentMagican.spellsBook.Add(spell);
-        UpdateSpellListItems();
+        Center.CurrentMagican.spellsBook.Add(spell);
+        DrawCurrentMagicanSpells();
     }
 
     public void EditSpell(Spell spell)
@@ -87,17 +56,17 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
 
     public void DeleteSpell(Spell spell)
     {
-        currentMagican.spellsBook.Remove(spell);
-        UpdateSpellListItems();
+        Center.CurrentMagican.spellsBook.Remove(spell);
+        DrawCurrentMagicanSpells();
     }
 
     public void ToSpellEditorWithSpell(Spell spell)
     {
         Center.CurrentSpell = spell;
+        Center.changer.ChangeViewToSpellForm();
         Center.formPanel.RebuildRune();
         Center.effectPanel.RebuildRunes();
         Center.targetCountPanel.RebuildRunes();
-        //Center.changer.ToSpellEditorStateFast();
     }
 
     public void OpenLoadSpellPanel()
@@ -118,35 +87,8 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
         }
     }
 
-    public void SaveMagicanToFile()
-    {
-        FileAccessUtility.SaveMagicanInTheFile(currentMagican, currentMagican.Name);
-    }
-
-    private void UpdateSpellListItems()
-    {
-        for (int i = 0; i < spellItemsContainer.childCount; i++)
-        {
-            Destroy(spellItemsContainer.GetChild(i).gameObject);
-        }
-
-        foreach (Spell spell in currentMagican.spellsBook)
-        {
-            CreateSpellItem(spell);
-        }
-    }
-
     private void CreateSpellItem(Spell spell)
     {
         Instantiate(spellItemPrefab, spellItemsContainer).GetComponent<SpellListItem>().Init(spell, this);
-    }
-
-    private void DrawMagicanButtons()
-    {
-        //foreach(var item in magicanHolder.MagicanList)
-        //{
-        //    Instantiate(magianButtonPrefab, magianButtonContainer).
-        //        GetComponent<CharacterButtonItem>().InitItem(item, this);
-        //}
     }
 }

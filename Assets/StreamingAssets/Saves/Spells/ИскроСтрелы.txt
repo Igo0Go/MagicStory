@@ -1,1 +1,0 @@
-{Name:Искрострелы><Description:Вспышки энергии, всегда попадающие в цель><TargetsCount:4><SuccessPercent:100><SpellForm:Arrow><Effect:[DamageEffect|7,1]><}

@@ -1,9 +1,0 @@
-Name:Аршалан
-Color:(0_0,6678457_1_1)
-_maxHealth:300
-_defaultAccuracy:85
-_defaultForce:100
-_defaultInitiative:4
-SPELLS
-{Name:Благословение точности><Description:Связь ищет цель и даёт прибавку к точности><TargetsCount:1><SuccessPercent:65><SpellForm:Relation><Effect:[ChangeAccuracyEffect|5,1]><}
-{Name:Искрострелы><Description:Вспышки энергии, всегда попадающие в цель><TargetsCount:4><SuccessPercent:100><SpellForm:Arrow><Effect:[DamageEffect|7,1]><}

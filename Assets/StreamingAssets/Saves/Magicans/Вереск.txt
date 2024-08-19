@@ -1,7 +1,0 @@
-Name:Вереск
-CharacterPortraitIndex:0
-_maxHealth:50
-_defaultAccuracy:50
-_defaultForce:50
-_defaultInitiative:0
-SPELLS
