@@ -92,6 +92,9 @@ public class SpellTargetCountEditorPanel : MonoBehaviour, ISpellEditorUIPart
             StartCoroutine(AddTargetRune(currentAngle));
             currentAngle += angle;
         }
+
+        nameInputField.text = Center.CurrentSpell.Name;
+        descriptionInputField.text = Center.CurrentSpell.Description;
     }
 
     private IEnumerator AddTargetRune(float angle)

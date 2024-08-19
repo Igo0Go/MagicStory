@@ -67,6 +67,7 @@ public class SpellEditor : MonoBehaviour, ISpellEditorUIPart
             if(Center.CurrentSpell.Effect == null)
             {
                 s += "у заклинания не задан эффект";
+                result = false;
             }
         }
         else

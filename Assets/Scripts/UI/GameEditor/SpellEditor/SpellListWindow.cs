@@ -65,7 +65,7 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
         Center.CurrentSpell = spell;
         Center.changer.ChangeViewToSpellForm();
         Center.formPanel.RebuildRune();
-        Center.effectPanel.RebuildRunes();
+        Center.effectPanel.UpdateEffectUIItems();
         Center.targetCountPanel.RebuildRunes();
     }
 

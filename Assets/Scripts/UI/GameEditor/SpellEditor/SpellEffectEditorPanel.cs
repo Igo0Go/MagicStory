@@ -354,8 +354,6 @@ public class SpellEffectEditorPanel : MonoBehaviour, ISpellEditorUIPart
         float angle = 360 / sprites.Count;
         float currentAngle = 0;
 
-
-
         foreach (var sprite in sprites)
         {
             StartCoroutine(AddEffectRune(sprite, currentAngle));

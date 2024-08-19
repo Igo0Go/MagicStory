@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
 {
@@ -40,6 +41,7 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
         accuracySlider.onValueChanged.AddListener(OnAccuracySliderChanged);
 
         characterEditorPanel.SetActive(false);
+        LoadAllMagicans();
     }
 
     public void CreateNewCharacter()
@@ -83,6 +85,22 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
         FileAccessUtility.SaveMagicanInTheFile(Center.CurrentMagican, Center.CurrentMagican.Name);
     }
 
+    public void LoadAllMagicans()
+    {
+        List<string> fileNames = FileAccessUtility.GetAllMagicansFilesNames();
+
+        for (int i = 0; i < charactersListContainer.childCount; i++)
+        {
+            Destroy(charactersListContainer.GetChild(i).gameObject);
+        }
+
+        foreach (string fileName in fileNames)
+        {
+            Instantiate(magicanButton, charactersListContainer).
+                GetComponent<CharacterButtonItem>().InitItem(fileName, this);
+        }
+    }
+
     private void ShowCharacterEditorForMagican(Magican magican)
     {
         Center.CurrentMagican = magican;
@@ -91,6 +109,7 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
         forceInputField.text = magican.Force.ToString();
         healthInputField.text = magican.Health.ToString();
         accuracyInputField.text = magican.Accuracy.ToString();
+        accuracySlider.value = magican.Accuracy;
         characterPortrait.sprite = Center.magicanPortraitsHolder.portraits[magican.CharacterPortraitIndex];
         Center.spellListPanel.DrawCurrentMagicanSpells();
     }
@@ -156,12 +175,5 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
         int accuracy = (int)value;
         Center.CurrentMagican.SetDefaultAccuracy(accuracy);
         accuracyInputField.text = accuracy.ToString();
-    }
-
-
-
-    private void LoadAllMagicans()
-    {
-
     }
 }

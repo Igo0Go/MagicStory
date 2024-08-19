@@ -6,18 +6,21 @@ public class CharacterButtonItem : MonoBehaviour
     [SerializeField]
     private TMP_Text magicanNameText;
 
-    private Magican magican;
+    private string fileName;
     private CharacterEditorPanel characterEditorPanel;
 
-    public void InitItem(Magican magican, CharacterEditorPanel characterEditorPanel)
+    public void InitItem(string magicanName, CharacterEditorPanel characterEditorPanel)
     {
-        this.magican = magican;
+        fileName = magicanName;
         this.characterEditorPanel = characterEditorPanel;
-        magicanNameText.text = magican.Name;
+
+        string[] strings = fileName.Split(new char[] { '\\' }, System.StringSplitOptions.RemoveEmptyEntries);
+        strings = strings[strings.Length - 1].Split(new char[] { '.' }, System.StringSplitOptions.RemoveEmptyEntries);
+        magicanNameText.text = fileName = strings[0];
     }
 
     public void ChoseThisMagican()
     {
-        characterEditorPanel.EditCharacter(magican);
+        characterEditorPanel.EditCharacter(FileAccessUtility.LoadMagicanFromFile(fileName, true));
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using UnityEngine;
 
 /// <summary>
@@ -113,53 +114,63 @@ public class Magican
             StringSplitOptions.RemoveEmptyEntries);
 
         string name = string.Empty;
-        Color color = Color.white;
         int maxHealth = 0;
         int defaultForce = 0;
         int defaultAccuracy = 0;
         int defaultInitiative = 0;
         int portraitIndex = 0;
 
-        foreach (string MagicanProperty in MagicanProperties)
+        int spellBeginningIndex = -1;
+
+        for (int i = 0; i < MagicanProperties.Length; i++)
         {
+            string MagicanProperty = MagicanProperties[i];
             string[] bufer = MagicanProperty.Split(":");
 
-            if (bufer[0].Equals(nameof(Name)))
+            if (bufer[0].Equals("SPELLS"))
             {
-                name = bufer[1];
+                spellBeginningIndex = i;
+                break;
             }
-            else if (bufer[0].Equals(nameof(Color)))
+            else
             {
-                char[] separators = { '-', '(', ')' };
-                string[] parts = bufer[1].Split(separators, StringSplitOptions.RemoveEmptyEntries);
-                color = new Color(float.Parse(parts[0]), float.Parse(parts[1]),
-                    float.Parse(parts[2]), float.Parse(parts[3]));
-            }
-            else if (bufer[0].Equals(nameof(CharacterPortraitIndex)))
-            {
-                portraitIndex = int.Parse(bufer[1]);
-            }
-            else if (bufer[0].Equals(nameof(_maxHealth)))
-            {
-                maxHealth = int.Parse(bufer[1]);
-            }
-            else if (bufer[0].Equals(nameof(Magican._defaultForce)))
-            {
-                defaultForce = int.Parse(bufer[1]);
-            }
-            else if (bufer[0].Equals(nameof(Magican._defaultAccuracy)))
-            {
-                defaultAccuracy = int.Parse(bufer[1]);
-            }
-            else if (bufer[0].Equals(nameof(Magican._defaultInitiative)))
-            {
-                defaultInitiative = int.Parse(bufer[1]);
+                if (bufer[0].Equals(nameof(Name)))
+                {
+                    name = bufer[1];
+                }
+                else if (bufer[0].Equals(nameof(CharacterPortraitIndex)))
+                {
+                    portraitIndex = int.Parse(bufer[1]);
+                }
+                else if (bufer[0].Equals(nameof(_maxHealth)))
+                {
+                    maxHealth = int.Parse(bufer[1]);
+                }
+                else if (bufer[0].Equals(nameof(_defaultForce)))
+                {
+                    defaultForce = int.Parse(bufer[1]);
+                }
+                else if (bufer[0].Equals(nameof(_defaultAccuracy)))
+                {
+                    defaultAccuracy = int.Parse(bufer[1]);
+                }
+                else if (bufer[0].Equals(nameof(_defaultInitiative)))
+                {
+                    defaultInitiative = int.Parse(bufer[1]);
+                }
             }
         }
 
         Magican magican = new Magican(name, maxHealth, defaultForce, defaultAccuracy, defaultInitiative);
 
+        magican.CharacterPortraitIndex = portraitIndex;
         magican.spellsBook = new List<Spell>();
+
+        for (int i = spellBeginningIndex+1; i < MagicanProperties.Length; i++)
+        {
+            magican.spellsBook.Add(Spell.GetSpellByInfo(MagicanProperties[i]));
+        }
+
         return magican;
     }
 

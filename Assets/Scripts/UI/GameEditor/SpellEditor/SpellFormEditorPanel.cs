@@ -120,6 +120,9 @@ public class SpellFormEditorPanel : MonoBehaviour, ISpellEditorUIPart
                 SetRelationForm();
             }
         }
+
+        percentInputField.text = Center.CurrentSpell.SuccessPercent.ToString();
+        percentSlider.value = Center.CurrentSpell.SuccessPercent;
     }
 
     public void ClearRune()
