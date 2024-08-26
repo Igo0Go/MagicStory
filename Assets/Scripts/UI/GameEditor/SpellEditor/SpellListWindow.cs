@@ -43,6 +43,7 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
         }
 
         spellWorkLoadText.text = "Общая нагрузка: " + spellWorkLoad.ToString();
+        Center.characterEditorPanel.UpdateMagicanWorkLoad();
     }
 
     public void CreateNewSpell()

@@ -112,6 +112,8 @@ public class Magican
         _accuracy = 0;
     }
 
+    #region Геймплей
+
     /// <summary>
     /// Добавить магу статус на определённое количество ходов
     /// </summary>
@@ -133,6 +135,31 @@ public class Magican
             CurrentMagicanStates.Add(state, moviesNumber);
         }
     }
+
+    /// <summary>
+    /// Уменьшить длительность статусов на один ход
+    /// </summary>
+    public void LowerStatsDuration()
+    {
+        foreach(var state in CurrentMagicanStates)
+        {
+            if(state.Value > 0)
+            {
+                CurrentMagicanStates[state.Key]--;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Снять все штрафы и преимущества
+    /// </summary>
+    public void ReturnStats()
+    {
+        _accuracy = 0;
+        _initiative = 0;
+    }
+
+    #endregion
 
     #region Изменение значения характеристик
 
