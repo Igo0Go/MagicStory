@@ -29,7 +29,7 @@ public class HealEffect : SpellEffect
 
     public override int CalculateReqareForceForThisEffectOnly()
     {
-        return healPoint * SpellForeceRequreSettings.healPointMultiplicator;
+        return healPoint * StatsMultiplicatorPack.healPointMultiplicator;
     }
 
     public override string GetSaveString()

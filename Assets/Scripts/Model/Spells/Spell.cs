@@ -70,15 +70,15 @@ public class Spell
         }
     }
 
-    public float CalculateForce()
+    public int CalculateWorkLoad()
     {
 
         if( Effect == null || SpellForm == null)
         {
-            return 0f;
+            return 0;
         }
 
-       return SpellForm.CalculateReqareForce(Effect) * TargetsCount/100f * SuccessPercent;
+       return (int)MathF.Round(SpellForm.CalculateWorkLoad(Effect) * TargetsCount/100f * SuccessPercent);
 
 
     }

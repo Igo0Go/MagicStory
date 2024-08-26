@@ -7,7 +7,7 @@ public class AuraSpellForm : SpellForm
         _description = "Аура";
     }
 
-    public override int CalculateReqareForce(SpellEffect effect)
+    public override int CalculateWorkLoad(SpellEffect effect)
     {
         return (int)SpellFormType.Aura * effect.CalculateReqareForce();
     }
@@ -20,14 +20,20 @@ public class AuraSpellForm : SpellForm
     public override (Magican target, int effectPercent)
         GetTarget(Magican defaultTarget, int userAccuracy, int spellSuccessPercent)
     {
-        if (spellSuccessPercent + userAccuracy > Random.Range(0, 101))
+        int complexity = Random.Range(0, 101);
+        int accuracy = spellSuccessPercent + userAccuracy;
+
+        if (accuracy >= complexity)
         {
+            //попадание
             return (defaultTarget, 100);
         }
         else
         {
             //Найти другую цель
         }
+
+        //Заглушка
         return (null, 0);
     }
 

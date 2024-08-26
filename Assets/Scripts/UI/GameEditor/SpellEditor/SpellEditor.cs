@@ -85,6 +85,6 @@ public class SpellEditor : MonoBehaviour, ISpellEditorUIPart
 
     public void DrawSpellForceRequared()
     {
-        spellForceRequaredText.text = "Нагрузка: " + Center.CurrentSpell.CalculateForce();
+        spellForceRequaredText.text = "Нагрузка: " + Center.CurrentSpell.CalculateWorkLoad();
     }
 }

@@ -8,7 +8,7 @@ public class CloudSpellForm : SpellForm
     }
 
 
-    public override int CalculateReqareForce(SpellEffect effect)
+    public override int CalculateWorkLoad(SpellEffect effect)
     {
         return (int)SpellFormType.Cloud * effect.CalculateReqareForce();
     }
@@ -20,9 +20,12 @@ public class CloudSpellForm : SpellForm
 
     public override string GetSaveString() => nameof(SpellFormType.Cloud);
 
-    public override (Magican target, int effectPercent)
-        GetTarget(Magican defaultTarget, int userAccuracy, int spellSuccessPercent)
+    public override (Magican target, int effectPercent) GetTarget
+        (Magican defaultTarget, int userAccuracy, int spellSuccessPercent)
     {
-        return (defaultTarget, Random.Range(0, spellSuccessPercent + userAccuracy + 1));
+        int maxPercent = Random.Range(0, spellSuccessPercent + userAccuracy + 1);
+
+        //Вычисляем концентрацию облака, которая попадает по цели
+        return (defaultTarget, maxPercent);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
 {
@@ -9,6 +10,8 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
     private Transform spellItemsContainer;
     [SerializeField]
     private GameObject spellItemPrefab;
+    [SerializeField]
+    private TMP_Text spellWorkLoadText;
 
     [Space]
     [SerializeField]
@@ -17,6 +20,7 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
     private Transform loadSpellContainer;
     [SerializeField]
     private GameObject loadSpellItemPrefab;
+
 
     public void Init(SpellEditorUICenter center)
     {
@@ -30,22 +34,27 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
             Destroy(spellItemsContainer.GetChild(i).gameObject);
         }
 
-        foreach (Spell spell in Center.CurrentMagican.spellsBook)
+        float spellWorkLoad = 0;
+
+        foreach (Spell spell in Center.CurrentMagican.SpellsBook)
         {
+            spellWorkLoad += spell.CalculateWorkLoad();
             CreateSpellItem(spell);
         }
+
+        spellWorkLoadText.text = "Общая нагрузка: " + spellWorkLoad.ToString();
     }
 
     public void CreateNewSpell()
     {
-        Center.CurrentMagican.spellsBook.Add(new Spell());
-        ToSpellEditorWithSpell(Center.CurrentMagican.spellsBook[Center.CurrentMagican.spellsBook.Count-1]);
+        Center.CurrentMagican.SpellsBook.Add(new Spell());
+        ToSpellEditorWithSpell(Center.CurrentMagican.SpellsBook[Center.CurrentMagican.SpellsBook.Count-1]);
     }
 
     public void AddSpell(Spell spell)
     {
         LoadSpellPanel.SetActive(false);
-        Center.CurrentMagican.spellsBook.Add(spell);
+        Center.CurrentMagican.SpellsBook.Add(spell);
         DrawCurrentMagicanSpells();
     }
 
@@ -56,7 +65,7 @@ public class SpellListWindow : MonoBehaviour, ISpellEditorUIPart
 
     public void DeleteSpell(Spell spell)
     {
-        Center.CurrentMagican.spellsBook.Remove(spell);
+        Center.CurrentMagican.SpellsBook.Remove(spell);
         DrawCurrentMagicanSpells();
     }
 

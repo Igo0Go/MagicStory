@@ -32,17 +32,17 @@ public class ChangeInitiativeEffect : SpellEffect
 
         if(initiativePoints > 0)
         {
-            result = initiativePoints *SpellForeceRequreSettings.initiativePointMultiplicator;
+            result = initiativePoints *StatsMultiplicatorPack.initiativePointMultiplicator;
         }
         else
         {
             if(effectTargetType == EffectTargetType.Target)
             {
-                result = Mathf.Abs(initiativePoints) * SpellForeceRequreSettings.initiativePointMultiplicator;
+                result = Mathf.Abs(initiativePoints) * StatsMultiplicatorPack.initiativePointMultiplicator;
             }
             else
             {
-                result = initiativePoints * SpellForeceRequreSettings.initiativePointMultiplicator;
+                result = initiativePoints * StatsMultiplicatorPack.initiativePointMultiplicator;
             }
         }
         return result;

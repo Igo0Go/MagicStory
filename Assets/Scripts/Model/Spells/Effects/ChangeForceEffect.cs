@@ -32,17 +32,17 @@ public class ChangeForceEffect : SpellEffect
 
         if (forcePoints > 0)
         {
-            result = forcePoints * SpellForeceRequreSettings.initiativePointMultiplicator;
+            result = forcePoints * StatsMultiplicatorPack.forcePointMultiplicator;
         }
         else
         {
             if (effectTargetType == EffectTargetType.Target)
             {
-                result = Mathf.Abs(forcePoints) * SpellForeceRequreSettings.initiativePointMultiplicator;
+                result = Mathf.Abs(forcePoints) * StatsMultiplicatorPack.forcePointMultiplicator;
             }
             else
             {
-                result = forcePoints * SpellForeceRequreSettings.initiativePointMultiplicator;
+                result = forcePoints * StatsMultiplicatorPack.forcePointMultiplicator;
             }
         }
         return result;

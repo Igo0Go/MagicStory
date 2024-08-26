@@ -26,11 +26,11 @@ public class DamageEffect : SpellEffect
         int result = 0;
         if (effectTargetType == EffectTargetType.Target)
         {
-            result = damage * SpellForeceRequreSettings.damagePointMultiplicator;
+            result = damage * StatsMultiplicatorPack.damagePointMultiplicator;
         }
         else
         {
-            result = -damage * SpellForeceRequreSettings.damagePointMultiplicator;
+            result = -damage * StatsMultiplicatorPack.damagePointMultiplicator;
         }
         return result;
     }

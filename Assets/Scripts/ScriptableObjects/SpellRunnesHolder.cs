@@ -81,17 +81,17 @@ public enum EffectType
     BloodSpell = 13
 }
 
-public static class SpellForeceRequreSettings
+public static class StatsMultiplicatorPack
 {
-    public static int changeAccuracyPointMultiplicator = 1;
+    public static int changeAccuracyPointMultiplicator = 5;
     public static int damagePointMultiplicator = 2;
     public static int healPointMultiplicator = 3;
-    public static int forcePointMultiplicator = 3;
+    public static int forcePointMultiplicator = 1;
     public static int initiativePointMultiplicator = 10;
 
     public static Dictionary<MagicanState, int> statesPrice = new Dictionary<MagicanState, int>();
 
-    static SpellForeceRequreSettings()
+    static StatsMultiplicatorPack()
     {
         statesPrice.Add(MagicanState.None, 100);
         statesPrice.Add(MagicanState.Shield, 12);

@@ -32,17 +32,17 @@ public class ChangeAccuracyEffect : SpellEffect
 
         if (accuracyPoints > 0)
         {
-            result = accuracyPoints * SpellForeceRequreSettings.changeAccuracyPointMultiplicator;
+            result = accuracyPoints * StatsMultiplicatorPack.changeAccuracyPointMultiplicator;
         }
         else
         {
             if (effectTargetType == EffectTargetType.Target)
             {
-                result = Mathf.Abs(accuracyPoints) * SpellForeceRequreSettings.changeAccuracyPointMultiplicator;
+                result = Mathf.Abs(accuracyPoints) * StatsMultiplicatorPack.changeAccuracyPointMultiplicator;
             }
             else
             {
-                result = accuracyPoints * SpellForeceRequreSettings.changeAccuracyPointMultiplicator;
+                result = accuracyPoints * StatsMultiplicatorPack.changeAccuracyPointMultiplicator;
             }
         }
         return result;

@@ -15,17 +15,13 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
 
     [Space(20)]
     [SerializeField]
+    private TMP_Text magicanWorkLoadText;
+    [SerializeField]
     private TMP_InputField nameInputField;
     [SerializeField]
     private TMP_InputField healthInputField;
     [SerializeField]
     private TMP_InputField forceInputField;
-    [SerializeField]
-    private TMP_InputField accuracyInputField;
-    [SerializeField]
-    private Slider accuracySlider;
-    [SerializeField]
-    private TMP_InputField initiativeInputField;
     [SerializeField]
     private Image characterPortrait;
 
@@ -37,8 +33,6 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
         nameInputField.onEndEdit.AddListener(OnNameInputFieldChanged);
         forceInputField.onEndEdit.AddListener(OnForceInputFieldChanged);
         healthInputField.onEndEdit.AddListener (OnHealthInputFieldChanged);
-        accuracyInputField.onEndEdit .AddListener(OnAccuracyInputFieldChanged);
-        accuracySlider.onValueChanged.AddListener(OnAccuracySliderChanged);
 
         characterEditorPanel.SetActive(false);
         LoadAllMagicans();
@@ -46,7 +40,7 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
 
     public void CreateNewCharacter()
     {
-        Magican magican = new Magican(string.Empty, 50, 50, 50, 0);
+        Magican magican = new Magican(string.Empty, 50, 50);
         ShowCharacterEditorForMagican(magican);
     }
 
@@ -101,6 +95,15 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
         }
     }
 
+    public void UpdateMagicanWorkLoad()
+    {
+        int magicanWorkLoad = Center.CurrentMagican.CalculateMagicanStatsWorkLoad();
+        int magicanSpellBookWorkLoad = Center.CurrentMagican.CalculateMagicanSpellsWorkload();
+
+        magicanWorkLoadText.text = "Нагрузка: " + magicanWorkLoad + " + " + magicanSpellBookWorkLoad + " = "
+            + (magicanWorkLoad + magicanSpellBookWorkLoad);
+    }
+
     private void ShowCharacterEditorForMagican(Magican magican)
     {
         Center.CurrentMagican = magican;
@@ -108,15 +111,15 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
         nameInputField.text = magican.Name;
         forceInputField.text = magican.Force.ToString();
         healthInputField.text = magican.Health.ToString();
-        accuracyInputField.text = magican.Accuracy.ToString();
-        accuracySlider.value = magican.Accuracy;
         characterPortrait.sprite = Center.magicanPortraitsHolder.portraits[magican.CharacterPortraitIndex];
         Center.spellListPanel.DrawCurrentMagicanSpells();
+        UpdateMagicanWorkLoad();
     }
 
     private void OnNameInputFieldChanged(string value)
     {
         Center.CurrentMagican.Name = value;
+        UpdateMagicanWorkLoad();
     }
     private void OnForceInputFieldChanged(string value)
     {
@@ -134,6 +137,7 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
         }
         Center.CurrentMagican.SetMaxForce(force);
         Center.CurrentMagican.Force = force;
+        UpdateMagicanWorkLoad();
     }
     private void OnHealthInputFieldChanged(string value)
     {
@@ -152,28 +156,6 @@ public class CharacterEditorPanel : MonoBehaviour, ISpellEditorUIPart
 
         Center.CurrentMagican.SetMaxHealth(health);
         Center.CurrentMagican.Health = health;
-    }
-    private void OnAccuracyInputFieldChanged(string value)
-    {
-        if (string.IsNullOrEmpty(value))
-        {
-            return;
-        }
-
-        int accuracy = int.Parse(value);
-
-        if (accuracy < 30 || accuracy > 100)
-        {
-            accuracy = Mathf.Clamp(accuracy, 30, 100);
-            accuracyInputField.text = accuracy.ToString();
-        }
-        Center.CurrentMagican.SetDefaultAccuracy(accuracy);
-        accuracySlider.value = accuracy;
-    }
-    private void OnAccuracySliderChanged(float value)
-    {
-        int accuracy = (int)value;
-        Center.CurrentMagican.SetDefaultAccuracy(accuracy);
-        accuracyInputField.text = accuracy.ToString();
+        UpdateMagicanWorkLoad();
     }
 }

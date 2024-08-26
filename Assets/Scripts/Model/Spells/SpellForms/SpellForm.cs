@@ -3,7 +3,7 @@ public abstract class SpellForm
     public string Description => _description;
     protected string _description;
 
-    public abstract int CalculateReqareForce(SpellEffect effect);
+    public abstract int CalculateWorkLoad(SpellEffect effect);
 
     public abstract SpellFormType GetFormType();
 

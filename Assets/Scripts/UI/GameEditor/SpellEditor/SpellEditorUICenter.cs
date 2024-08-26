@@ -35,6 +35,7 @@ public class SpellEditorUICenter : MonoBehaviour
             if (tipPanel.activeSelf)
             {
                 tipPanel.SetActive(false);
+                characterEditorPanel.UpdateMagicanWorkLoad();
             }
         }
     }

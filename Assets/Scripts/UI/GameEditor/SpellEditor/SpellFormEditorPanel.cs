@@ -22,7 +22,7 @@ public class SpellFormEditorPanel : MonoBehaviour, ISpellEditorUIPart
     {
         this.Center = center;
         percentSlider.onValueChanged.AddListener(OnPercentSliderChanged);
-        percentInputField.onValueChanged.AddListener(OnPercentInputFieldChanged);
+        percentInputField.onEndEdit.AddListener(OnPercentInputFieldEndEdit);
     }
 
     public void ActivatePanel()
@@ -133,14 +133,20 @@ public class SpellFormEditorPanel : MonoBehaviour, ISpellEditorUIPart
 
     private void OnPercentSliderChanged(float percent)
     {
-        Center.CurrentSpell.SuccessPercent = (int)percent;
+        int newPercent = Mathf.Clamp((int)percent, 55, 100);
         percentInputField.text = percent.ToString();
+        Center.CurrentSpell.SuccessPercent = newPercent;
         Center.spellEditor.DrawSpellForceRequared();
     }
-    private void OnPercentInputFieldChanged(string value)
+    private void OnPercentInputFieldEndEdit(string value)
     {
-        Center.CurrentSpell.SuccessPercent = int.Parse(value);
-        percentSlider.value = Center.CurrentSpell.SuccessPercent;
-        Center.spellEditor.DrawSpellForceRequared();
+        int newPercent = 0;
+        if (int.TryParse(value, out newPercent))
+        {
+            newPercent = Mathf.Clamp(newPercent, 55, 100);
+            Center.CurrentSpell.SuccessPercent = newPercent;
+            percentSlider.value = Center.CurrentSpell.SuccessPercent;
+            Center.spellEditor.DrawSpellForceRequared();
+        }
     }
 }

@@ -56,16 +56,14 @@ public class Magican
     /// <summary>
     /// Текущая точность с учётом изменений
     /// </summary>
-    public int Accuracy => Mathf.Clamp(_defaultAccuracy + _changedAccuracy, 0, 100);
-    private int _defaultAccuracy;
-    private int _changedAccuracy;
+    public int Accuracy => Mathf.Clamp(_accuracy, 0, 100);
+    private int _accuracy;
 
     /// <summary>
     /// Текущая инициатива с учётом изменений
     /// </summary>
-    public int Initiative => _defaultInitiative + _changedInitiative;
-    private int _defaultInitiative;
-    private int _changedInitiative;
+    public int Initiative => _initiative;
+    private int _initiative;
 
     /// <summary>
     /// Состояние героя
@@ -75,7 +73,7 @@ public class Magican
     /// <summary>
     /// Книга заклинаний мага
     /// </summary>
-    public List<Spell> spellsBook { get; set; } = new List<Spell>();
+    public List<Spell> SpellsBook { get; set; } = new List<Spell>();
 
     /// <summary>
     /// Тот, кто завладел разумом
@@ -96,16 +94,15 @@ public class Magican
     /// <param name="maxHealth">Максимальный запас здоровья</param>
     /// <param name="defaultForce">Стандартное значение мощи</param>
     /// <param name="color">Цвет в консоли</param>
-    public Magican(string name, int maxHealth, int defaultForce, int defaultAccuracy, 
-        int defaultInitiative)
+    public Magican(string name, int maxHealth, int defaultForce)
     {
         Name = name;
         _maxHealth = maxHealth;
         Health = maxHealth;
         _defaultForce = defaultForce;
         Force = defaultForce;
-        _defaultInitiative = defaultInitiative;
-        _defaultAccuracy = defaultAccuracy;
+        _initiative = 0;
+        _accuracy = 0;
     }
 
     public static Magican GetMagican(string dataString)
@@ -116,7 +113,6 @@ public class Magican
         string name = string.Empty;
         int maxHealth = 0;
         int defaultForce = 0;
-        int defaultAccuracy = 0;
         int defaultInitiative = 0;
         int portraitIndex = 0;
 
@@ -150,25 +146,21 @@ public class Magican
                 {
                     defaultForce = int.Parse(bufer[1]);
                 }
-                else if (bufer[0].Equals(nameof(_defaultAccuracy)))
-                {
-                    defaultAccuracy = int.Parse(bufer[1]);
-                }
-                else if (bufer[0].Equals(nameof(_defaultInitiative)))
+                else if (bufer[0].Equals(nameof(_initiative)))
                 {
                     defaultInitiative = int.Parse(bufer[1]);
                 }
             }
         }
 
-        Magican magican = new Magican(name, maxHealth, defaultForce, defaultAccuracy, defaultInitiative);
+        Magican magican = new Magican(name, maxHealth, defaultForce);
 
         magican.CharacterPortraitIndex = portraitIndex;
-        magican.spellsBook = new List<Spell>();
+        magican.SpellsBook = new List<Spell>();
 
         for (int i = spellBeginningIndex+1; i < MagicanProperties.Length; i++)
         {
-            magican.spellsBook.Add(Spell.GetSpellByInfo(MagicanProperties[i]));
+            magican.SpellsBook.Add(Spell.GetSpellByInfo(MagicanProperties[i]));
         }
 
         return magican;
@@ -191,13 +183,31 @@ public class Magican
         }
     }
 
-    public void ChangeAccuracty(int accuracyPoints) => _changedAccuracy += accuracyPoints;
-    public void ChangeInitiative(int initiativePoints) => _changedInitiative += initiativePoints;
+    public void ChangeAccuracty(int accuracyPoints) => _accuracy += accuracyPoints;
+    public void ChangeInitiative(int initiativePoints) => _initiative += initiativePoints;
 
     public void SetMaxHealth(int value) => _maxHealth = value;
     public void SetMaxForce(int forcePoints) => _defaultForce = forcePoints;
-    public void SetDefaultAccuracy(int value) => _defaultAccuracy = value;
-    public void SetDefaultInitiative(int value) => _defaultInitiative = value;
+    public void SetDefaultInitiative(int value) => _initiative = value;
+
+    public int CalculateMagicanStatsWorkLoad()
+    {
+        int result = 0;
+
+        result += _maxHealth * StatsMultiplicatorPack.healPointMultiplicator;
+        result += _defaultForce * StatsMultiplicatorPack.forcePointMultiplicator;
+
+        return result;
+    }
+    public int CalculateMagicanSpellsWorkload()
+    {
+        int result = 0;
+        foreach(Spell spell in SpellsBook)
+        {
+            result += spell.CalculateWorkLoad();
+        }
+        return result;
+    }
 
     public string GetSaveString()
     {
@@ -206,12 +216,11 @@ public class Magican
         result += nameof(Name) + ":" + Name + FileAccessUtility.stringSeparator;
         result += nameof(CharacterPortraitIndex) + ":" + CharacterPortraitIndex + FileAccessUtility.stringSeparator;
         result += nameof(_maxHealth) + ":" + _maxHealth + FileAccessUtility.stringSeparator;
-        result += nameof(_defaultAccuracy) + ":" + _defaultAccuracy + FileAccessUtility.stringSeparator;
         result += nameof(_defaultForce) + ":" + _defaultForce + FileAccessUtility.stringSeparator;
-        result += nameof(_defaultInitiative) + ":" + _defaultInitiative + FileAccessUtility.stringSeparator;
+        result += nameof(_initiative) + ":" + _initiative + FileAccessUtility.stringSeparator;
         result += "SPELLS"+ FileAccessUtility.stringSeparator;
 
-        foreach (var item in spellsBook)
+        foreach (var item in SpellsBook)
         {
             result += item.GetSaveString() + FileAccessUtility.stringSeparator;
         }

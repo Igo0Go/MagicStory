@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Portraits
   m_EditorClassIdentifier: 
   portraits:
-  - {fileID: 21300000, guid: b7a76246f96bda54d8a20d612772b3f7, type: 3}
-  - {fileID: 21300000, guid: 66752368e74be6a4abaf15559edc9907, type: 3}
-  - {fileID: 21300000, guid: ca0e81b88993f8b489cb89a16d1f2456, type: 3}
-  - {fileID: 21300000, guid: 14506ebdc6dbbdc4a82938d5449c7d98, type: 3}
-  - {fileID: 21300000, guid: 8278512fb23542743ace16b4a8274c52, type: 3}
+  - {fileID: 21300000, guid: d7e90e3acdc3e054fa86d0e254e081d8, type: 3}
+  - {fileID: 21300000, guid: 0c215be2233ced648a59e818fd0bb5a4, type: 3}
+  - {fileID: 21300000, guid: 71deea924f6c62846ba50f9941629bd8, type: 3}
+  - {fileID: 21300000, guid: a7bfb0b356fc8a14686005b0f3e889e4, type: 3}
+  - {fileID: 21300000, guid: 9769d3f6c6b44654b8e9d1092893e9c0, type: 3}
+  - {fileID: 21300000, guid: 9143a89edb60cdb4387aea6bc789a26f, type: 3}

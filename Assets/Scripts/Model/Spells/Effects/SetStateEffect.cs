@@ -40,11 +40,11 @@ public class SetStateEffect : SpellEffect
         int result = 0;
         if(state == MagicanState.None)
         {
-            result = SpellForeceRequreSettings.statesPrice[state];
+            result = StatsMultiplicatorPack.statesPrice[state];
         }
         else
         {
-            result = SpellForeceRequreSettings.statesPrice[state] * duration;
+            result = StatsMultiplicatorPack.statesPrice[state] * duration;
         }
         return result;
     }

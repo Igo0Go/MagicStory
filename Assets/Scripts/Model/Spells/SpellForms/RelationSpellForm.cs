@@ -7,7 +7,7 @@ public class RelationSpellForm : SpellForm
         _description = "Связь";
     }
 
-    public override int CalculateReqareForce(SpellEffect effect)
+    public override int CalculateWorkLoad(SpellEffect effect)
     {
         return (int)SpellFormType.Relation * effect.CalculateReqareForce();
     }
@@ -20,11 +20,15 @@ public class RelationSpellForm : SpellForm
     public override (Magican target, int effectPercent)
         GetTarget(Magican defaultTarget, int userAccuracy, int spellSuccessPercent)
     {
-        if (spellSuccessPercent + userAccuracy > Random.Range(0, 101))
+        int complexity = Random.Range(0, 101);
+        int accuracy = spellSuccessPercent + userAccuracy;
+
+        if (accuracy >= complexity)
         {
+            //попадание
             return (defaultTarget, 100);
         }
-        else if (spellSuccessPercent + userAccuracy > Random.Range(0, 76))
+        else if (complexity - accuracy > 10)
         {
             //Найти другую цель
         }

@@ -13,6 +13,8 @@ public class SpellListItem : MonoBehaviour
     [SerializeField]
     private TMP_Text spellNameText;
     [SerializeField]
+    private TMP_Text spellDescriptionText;
+    [SerializeField]
     private TMP_Text targetCountText;
     [SerializeField]
     private TMP_Text accuracyText;
@@ -33,7 +35,9 @@ public class SpellListItem : MonoBehaviour
 
         spellNameText.text = spell.Name;
 
-        reqareForceText.text = spell.CalculateForce().ToString();
+        spellDescriptionText.text = spell.Description;
+
+        reqareForceText.text = spell.CalculateWorkLoad().ToString();
 
         targetCountText.text = spell.TargetsCount.ToString();
         accuracyText.text = spell.SuccessPercent.ToString();

@@ -7,7 +7,7 @@ public class ArrowSpellForm : SpellForm
         _description = "Стрела";
     }
 
-    public override int CalculateReqareForce(SpellEffect effect)
+    public override int CalculateWorkLoad(SpellEffect effect)
     {
         return (int)SpellFormType.Arrow * effect.CalculateReqareForce();
     }
@@ -20,8 +20,12 @@ public class ArrowSpellForm : SpellForm
     public override (Magican target, int effectPercent) 
         GetTarget(Magican defaultTarget, int userAccuracy, int spellSuccessPercent)
     {
-        if(spellSuccessPercent+userAccuracy > Random.Range(0,101))
+        int complexity = Random.Range(0, 101);
+        int accuracy = spellSuccessPercent + userAccuracy;
+
+        if (accuracy > complexity)
         {
+            //попадание
             return (defaultTarget, 100);
         }
         return (null, 0);
