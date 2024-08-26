@@ -53,7 +53,7 @@ public class SpellEffectEditorPanel : MonoBehaviour, ISpellEditorUIPart
     public void AddNewChangeAccuracyEffect()
     {
         ChangeAccuracyEffect effect = new ChangeAccuracyEffect();
-        effect.accuracyPoints = 1;
+        effect.accuracyOffset = 1;
         effect.effectTargetType = EffectTargetType.Target;
         AddNewEffect(effect);
     }
@@ -61,7 +61,7 @@ public class SpellEffectEditorPanel : MonoBehaviour, ISpellEditorUIPart
     public void AddNewChangeForceEffect()
     {
         ChangeForceEffect effect = new ChangeForceEffect();
-        effect.forcePoints = 1;
+        effect.forceOffset = 1;
         effect.effectTargetType = EffectTargetType.Target;
         AddNewEffect(effect);
     }
@@ -69,7 +69,7 @@ public class SpellEffectEditorPanel : MonoBehaviour, ISpellEditorUIPart
     public void AddNewChangeInitiativeEffect()
     {
         ChangeInitiativeEffect effect = new ChangeInitiativeEffect();
-        effect.initiativePoints = 1;
+        effect.initiativeOffset = 1;
         effect.effectTargetType = EffectTargetType.Target;
         AddNewEffect(effect);
     }
@@ -307,7 +307,7 @@ public class SpellEffectEditorPanel : MonoBehaviour, ISpellEditorUIPart
             }
             else if (effect is ChangeAccuracyEffect changeAccuracyEffect)
             {
-                if (changeAccuracyEffect.accuracyPoints > 0)
+                if (changeAccuracyEffect.accuracyOffset > 0)
                 {
                     sprites.Add(Center.spellRunnesHolder.FindEffectItem(EffectType.ImproveAccuracy));
                 }
@@ -319,7 +319,7 @@ public class SpellEffectEditorPanel : MonoBehaviour, ISpellEditorUIPart
             }
             else if (effect is ChangeForceEffect changeForceEffect)
             {
-                if (changeForceEffect.forcePoints > 0)
+                if (changeForceEffect.forceOffset > 0)
                 {
                     sprites.Add(Center.spellRunnesHolder.FindEffectItem(EffectType.ImproveForce));
                 }
@@ -330,7 +330,7 @@ public class SpellEffectEditorPanel : MonoBehaviour, ISpellEditorUIPart
             }
             else if (effect is ChangeInitiativeEffect changeInitiativeEffect)
             {
-                if (changeInitiativeEffect.initiativePoints > 0)
+                if (changeInitiativeEffect.initiativeOffset > 0)
                 {
                     sprites.Add(Center.spellRunnesHolder.FindEffectItem(EffectType.ImproveInitiative));
                 }

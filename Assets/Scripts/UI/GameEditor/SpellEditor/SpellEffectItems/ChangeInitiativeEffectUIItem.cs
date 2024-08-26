@@ -40,7 +40,7 @@ public class ChangeInitiativeEffectUIItem : MonoBehaviour
         }
         int initiativePoints = value;
         InitiativeField.text = initiativePoints.ToString();
-        changeInitiativeEffect.initiativePoints = initiativePoints;
+        changeInitiativeEffect.initiativeOffset = initiativePoints;
         UpdateItemData();
         spellEffectEditorPanel.RebuildRunes();
     }
@@ -59,7 +59,7 @@ public class ChangeInitiativeEffectUIItem : MonoBehaviour
     public void UpdateItemData()
     {
         requareForceText.text = "Нагрузка: " + changeInitiativeEffect.CalculateReqareForceForThisEffectOnly();
-        InitiativeField.text = changeInitiativeEffect.initiativePoints.ToString();
+        InitiativeField.text = changeInitiativeEffect.initiativeOffset.ToString();
         targetDropdown.value = (int)changeInitiativeEffect.effectTargetType;
         spellEffectEditorPanel.Center.spellEditor.DrawSpellForceRequared();
     }

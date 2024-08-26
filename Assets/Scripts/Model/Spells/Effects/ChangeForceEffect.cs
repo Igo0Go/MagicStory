@@ -1,27 +1,48 @@
 using UnityEngine;
 
+/// <summary>
+/// Эффект повышает (до максимальной) или понижает (до нуля) ману цели
+/// </summary>
 public class ChangeForceEffect : SpellEffect
 {
-    public int forcePoints = 1;
+    public int forceOffset = 1;
 
     public ChangeForceEffect()
     {
-        if (forcePoints > 0)
+        if (forceOffset > 0)
         {
-            _description = "Повышает запас мощи цели на " + forcePoints;
+            _description = "Повышает запас мощи цели на " + forceOffset;
         }
         else
         {
-            _description = "Понижает запас мощи цели на " + Mathf.Abs(forcePoints);
+            _description = "Понижает запас мощи цели на " + Mathf.Abs(forceOffset);
         }
     }
 
-    public override int CalculateReqareForce()
+    /// <summary>
+    /// Применить эффект на цель - добавить или отнять ману цели
+    /// </summary>
+    /// <param name="user">Заклинатель</param>
+    /// <param name="target">Цель</param>
+    /// <param name="effectPercent">Концентрация эффекта</param>
+    public override void UseEffectToTarget(Magican user, Magican target, int effectPercent)
+    {
+        if (effectTargetType == EffectTargetType.User)
+        {
+            user.Force += GetEffectValue(forceOffset, effectPercent);
+        }
+        else
+        {
+            target.Force += GetEffectValue(forceOffset, effectPercent);
+        }
+    }
+
+    public override int CalculateWorkLoad()
     {
         int result = CalculateReqareForceForThisEffectOnly();
         if (insideEffect != null)
         {
-            result += insideEffect.CalculateReqareForce();
+            result += insideEffect.CalculateWorkLoad();
         }
         return result;
     }
@@ -30,29 +51,29 @@ public class ChangeForceEffect : SpellEffect
     {
         int result = 0;
 
-        if (forcePoints > 0)
+        if (forceOffset > 0)
         {
-            result = forcePoints * StatsMultiplicatorPack.forcePointMultiplicator;
+            result = forceOffset * StatsMultiplicatorPack.forcePointMultiplicator;
         }
         else
         {
             if (effectTargetType == EffectTargetType.Target)
             {
-                result = Mathf.Abs(forcePoints) * StatsMultiplicatorPack.forcePointMultiplicator;
+                result = Mathf.Abs(forceOffset) * StatsMultiplicatorPack.forcePointMultiplicator;
             }
             else
             {
-                result = forcePoints * StatsMultiplicatorPack.forcePointMultiplicator;
+                result = forceOffset * StatsMultiplicatorPack.forcePointMultiplicator;
             }
         }
         return result;
     }
 
-    public override string GetSaveString()
+    public override string GetDataString()
     {
         string result = string.Empty;
 
-        result += "[" + nameof(ChangeForceEffect) + "|" + forcePoints + ","
+        result += "[" + nameof(ChangeForceEffect) + "|" + forceOffset + ","
             + (effectTargetType == EffectTargetType.Target ? 1 : 0) + "]";
 
         SpellEffect buferEffect = this;
@@ -60,20 +81,8 @@ public class ChangeForceEffect : SpellEffect
         if(buferEffect.insideEffect != null)
         {
             buferEffect = buferEffect.insideEffect;
-            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetSaveString();
+            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetDataString();
         }
         return result;
-    }
-
-    public override void UseEffectToTarget(Magican user, Magican target, int effectPercent)
-    {
-        if (effectTargetType == EffectTargetType.User)
-        {
-            user.Force += GetEffectValue(forcePoints, effectPercent);
-        }
-        else
-        {
-            target.Force += GetEffectValue(forcePoints, effectPercent);
-        }
     }
 }

@@ -1,3 +1,6 @@
+/// <summary>
+/// Статусы мага
+/// </summary>
 public enum MagicanState
 {
     Shield = 0,

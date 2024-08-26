@@ -37,7 +37,7 @@ public class ChangeAccuracyEffectUIItem : MonoBehaviour
             return;
         }
         AccuracyField.text = accuracy.ToString();
-        changeAccuracyEffect.accuracyPoints = accuracy;
+        changeAccuracyEffect.accuracyOffset = accuracy;
         UpdateItemData();
         spellEffectEditorPanel.RebuildRunes();
     }
@@ -56,7 +56,7 @@ public class ChangeAccuracyEffectUIItem : MonoBehaviour
     public void UpdateItemData()
     {
         requareForceText.text = "Нагрузка: " + changeAccuracyEffect.CalculateReqareForceForThisEffectOnly();
-        AccuracyField.text = changeAccuracyEffect.accuracyPoints.ToString();
+        AccuracyField.text = changeAccuracyEffect.accuracyOffset.ToString();
         targetDropdown.value = (int)changeAccuracyEffect.effectTargetType;
         spellEffectEditorPanel.Center.spellEditor.DrawSpellForceRequared();
     }

@@ -1,10 +1,11 @@
-using System;
-using UnityEngine;
-
-[Serializable]
+/// <summary>
+/// Эффект исцеляет цель, увеличивая (до её максимума) количество очков здоровья
+/// </summary>
 public class HealEffect : SpellEffect
 {
-    [Min(1)]
+    /// <summary>
+    /// Количество очков здоровя, которые будут восстановлены цели
+    /// </summary>
     public int healPoint;
 
     public HealEffect()
@@ -12,17 +13,23 @@ public class HealEffect : SpellEffect
         _description = "Добавляет цели " + healPoint + " здоровья";
     }
 
+    /// <summary>
+    /// Применить эффект на цель - исцелить её
+    /// </summary>
+    /// <param name="user">Заклинатель</param>
+    /// <param name="target">Цель</param>
+    /// <param name="effectPercent">Концентрация эффекта</param>
     public override void UseEffectToTarget(Magican user, Magican target, int effectPercent)
     {
         target.Health -= GetEffectValue(healPoint, effectPercent);
     }
 
-    public override int CalculateReqareForce()
+    public override int CalculateWorkLoad()
     {
         int result = CalculateReqareForceForThisEffectOnly();
         if (insideEffect != null)
         {
-            result += insideEffect.CalculateReqareForce();
+            result += insideEffect.CalculateWorkLoad();
         }
         return result;
     }
@@ -32,7 +39,7 @@ public class HealEffect : SpellEffect
         return healPoint * StatsMultiplicatorPack.healPointMultiplicator;
     }
 
-    public override string GetSaveString()
+    public override string GetDataString()
     {
         string result = string.Empty;
 
@@ -44,7 +51,7 @@ public class HealEffect : SpellEffect
         if (buferEffect.insideEffect != null)
         {
             buferEffect = buferEffect.insideEffect;
-            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetSaveString();
+            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetDataString();
         }
         return result;
     }

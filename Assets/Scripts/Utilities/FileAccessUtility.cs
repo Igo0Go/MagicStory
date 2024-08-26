@@ -11,7 +11,7 @@ public static class FileAccessUtility
 
     public static void SaveSpellInTheFile(Spell spell, string fileName)
     {
-        string saveString = spell.GetSaveString();
+        string saveString = spell.GetDataString();
 
         string filePath = Path.Combine(Application.streamingAssetsPath, "Saves", "Spells", fileName + ".txt");
 

@@ -1,27 +1,51 @@
 using UnityEngine;
 
+/// <summary>
+/// Эффект повышает или понижает добавочную инициативу цели, сдвигая её в порядке ходов
+/// </summary>
 public class ChangeInitiativeEffect : SpellEffect
 {
-    public int initiativePoints = 1;
+    /// <summary>
+    /// Смещение инициативы
+    /// </summary>
+    public int initiativeOffset = 1;
 
     public ChangeInitiativeEffect()
     {
-        if (initiativePoints > 0)
+        if (initiativeOffset > 0)
         {
-            _description = "Повышает инициативу цели на " + initiativePoints;
+            _description = "Повышает инициативу цели на " + initiativeOffset;
         }
         else
         {
-            _description = "Понижает инициативу цели на " + Mathf.Abs(initiativePoints);
+            _description = "Понижает инициативу цели на " + Mathf.Abs(initiativeOffset);
         }
     }
 
-    public override int CalculateReqareForce()
+    /// <summary>
+    /// Применить эффект на цель - повысить или понизить инициативу цели, чтобы сместить её в порядке ходов
+    /// </summary>
+    /// <param name="user">Заклинатель</param>
+    /// <param name="target">Цель</param>
+    /// <param name="effectPercent">Концентрация эффекта</param>
+    public override void UseEffectToTarget(Magican user, Magican target, int effectPercent)
+    {
+        if (effectTargetType == EffectTargetType.User)
+        {
+            user.ChangeInitiative(GetEffectValue(initiativeOffset, effectPercent));
+        }
+        else
+        {
+            target.ChangeInitiative(GetEffectValue(initiativeOffset, effectPercent));
+        }
+    }
+
+    public override int CalculateWorkLoad()
     {
         int result = CalculateReqareForceForThisEffectOnly();
         if (insideEffect != null)
         {
-            result += insideEffect.CalculateReqareForce();
+            result += insideEffect.CalculateWorkLoad();
         }
         return result;
     }
@@ -30,41 +54,29 @@ public class ChangeInitiativeEffect : SpellEffect
     {
         int result = 0;
 
-        if(initiativePoints > 0)
+        if(initiativeOffset > 0)
         {
-            result = initiativePoints *StatsMultiplicatorPack.initiativePointMultiplicator;
+            result = initiativeOffset *StatsMultiplicatorPack.initiativePointMultiplicator;
         }
         else
         {
             if(effectTargetType == EffectTargetType.Target)
             {
-                result = Mathf.Abs(initiativePoints) * StatsMultiplicatorPack.initiativePointMultiplicator;
+                result = Mathf.Abs(initiativeOffset) * StatsMultiplicatorPack.initiativePointMultiplicator;
             }
             else
             {
-                result = initiativePoints * StatsMultiplicatorPack.initiativePointMultiplicator;
+                result = initiativeOffset * StatsMultiplicatorPack.initiativePointMultiplicator;
             }
         }
         return result;
     }
 
-    public override void UseEffectToTarget(Magican user, Magican target, int effectPercent)
-    {
-        if (effectTargetType == EffectTargetType.User)
-        {
-            user.ChangeInitiative(GetEffectValue(initiativePoints, effectPercent));
-        }
-        else
-        {
-            target.ChangeInitiative(GetEffectValue(initiativePoints, effectPercent));
-        }
-    }
-
-    public override string GetSaveString()
+    public override string GetDataString()
     {
         string result = string.Empty;
 
-        result += "[" + nameof(ChangeInitiativeEffect) + "|" + initiativePoints + ","
+        result += "[" + nameof(ChangeInitiativeEffect) + "|" + initiativeOffset + ","
             + (effectTargetType == EffectTargetType.Target ? 1 : 0) + "]";
 
         SpellEffect buferEffect = this;
@@ -72,7 +84,7 @@ public class ChangeInitiativeEffect : SpellEffect
         if (buferEffect.insideEffect != null)
         {
             buferEffect = buferEffect.insideEffect;
-            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetSaveString();
+            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetDataString();
         }
         return result;
     }

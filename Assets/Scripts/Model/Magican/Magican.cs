@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing.Text;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +8,8 @@ using UnityEngine;
 [System.Serializable]
 public class Magican
 {
+    #region Основные характеристики
+
     /// <summary>
     /// Имя мага
     /// </summary>
@@ -51,7 +52,7 @@ public class Magican
         }
     }
     private int _force;
-    private int _defaultForce;
+    private int _defaultForce = 50;
 
     /// <summary>
     /// Текущая точность с учётом изменений
@@ -64,6 +65,10 @@ public class Magican
     /// </summary>
     public int Initiative => _initiative;
     private int _initiative;
+
+    #endregion
+
+    #region Изменчивые характеристики
 
     /// <summary>
     /// Состояние героя
@@ -87,6 +92,8 @@ public class Magican
 
     public Dictionary<MagicanState, int> CurrentMagicanStates { get; set; } = new Dictionary<MagicanState, int>();
 
+    #endregion
+
     /// <summary>
     /// Создаёт экземпляр мага со своими характеристиками
     /// </summary>
@@ -105,6 +112,87 @@ public class Magican
         _accuracy = 0;
     }
 
+    /// <summary>
+    /// Добавить магу статус на определённое количество ходов
+    /// </summary>
+    /// <param name="state">Статус</param>
+    /// <param name="moviesNumber">Количество ходов</param>
+    public void SetState(MagicanState state, int moviesNumber)
+    {
+        if(state == MagicanState.None)
+        {
+            CurrentMagicanStates.Clear();
+        }
+
+        if(CurrentMagicanStates.ContainsKey(state))
+        {
+            CurrentMagicanStates[state] += moviesNumber;
+        }
+        else
+        {
+            CurrentMagicanStates.Add(state, moviesNumber);
+        }
+    }
+
+    #region Изменение значения характеристик
+
+    /// <summary>
+    /// Рассчитать нагрузку только мага
+    /// </summary>
+    /// <returns>Нагрузка мага в единицах прокачки</returns>
+    public int CalculateMagicanStatsWorkLoad()
+    {
+        int result = 0;
+
+        result += _maxHealth * StatsMultiplicatorPack.healPointMultiplicator;
+        result += _defaultForce * StatsMultiplicatorPack.forcePointMultiplicator;
+
+        return result;
+    }
+    /// <summary>
+    /// Рассчитать нагрузку книги заклинаний мага
+    /// </summary>
+    /// <returns>Нагрузка книги заклинаний мага в единицах прокачки</returns>
+    public int CalculateMagicanSpellsWorkload()
+    {
+        int result = 0;
+        foreach (Spell spell in SpellsBook)
+        {
+            result += spell.CalculateWorkLoad();
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Сместить добавочное значение точности мага. Дать преимущество или помеху
+    /// </summary>
+    /// <param name="accuracyPoints">смещение добавочной точности</param>
+    public void ChangeAccuracty(int accuracyPoints) => _accuracy += accuracyPoints;
+    /// <summary>
+    /// Сместить добавочное значение инициативы мага. Дать преимущество или помеху
+    /// </summary>
+    /// <param name="initiativePoints">смещение добавочной инициативы</param>
+    public void ChangeInitiative(int initiativePoints) => _initiative += initiativePoints;
+
+    /// <summary>
+    /// Назначить новое значение максимального здоровья мага
+    /// </summary>
+    /// <param name="value">новое значение максимального здоровья</param>
+    public void SetMaxHealth(int value) => _maxHealth = value;
+    /// <summary>
+    /// азначить новое значение максимальной маны мага
+    /// </summary>
+    /// <param name="forcePoints">новое значение максимальной маны</param>
+    public void SetMaxForce(int forcePoints) => _defaultForce = forcePoints;
+
+    #endregion
+
+    #region Работа с данными
+    /// <summary>
+    /// Преобразовать строку данных в экземпляр мага
+    /// </summary>
+    /// <param name="dataString">строка данных</param>
+    /// <returns></returns>
     public static Magican GetMagican(string dataString)
     {
         string[] MagicanProperties = dataString.Split(FileAccessUtility.stringSeparator,
@@ -158,57 +246,17 @@ public class Magican
         magican.CharacterPortraitIndex = portraitIndex;
         magican.SpellsBook = new List<Spell>();
 
-        for (int i = spellBeginningIndex+1; i < MagicanProperties.Length; i++)
+        for (int i = spellBeginningIndex + 1; i < MagicanProperties.Length; i++)
         {
             magican.SpellsBook.Add(Spell.GetSpellByInfo(MagicanProperties[i]));
         }
 
         return magican;
     }
-
-    public void SetState(MagicanState state, int moviesNumber)
-    {
-        if(state == MagicanState.None)
-        {
-            CurrentMagicanStates.Clear();
-        }
-
-        if(CurrentMagicanStates.ContainsKey(state))
-        {
-            CurrentMagicanStates[state] = moviesNumber;
-        }
-        else
-        {
-            CurrentMagicanStates.Add(state, moviesNumber);
-        }
-    }
-
-    public void ChangeAccuracty(int accuracyPoints) => _accuracy += accuracyPoints;
-    public void ChangeInitiative(int initiativePoints) => _initiative += initiativePoints;
-
-    public void SetMaxHealth(int value) => _maxHealth = value;
-    public void SetMaxForce(int forcePoints) => _defaultForce = forcePoints;
-    public void SetDefaultInitiative(int value) => _initiative = value;
-
-    public int CalculateMagicanStatsWorkLoad()
-    {
-        int result = 0;
-
-        result += _maxHealth * StatsMultiplicatorPack.healPointMultiplicator;
-        result += _defaultForce * StatsMultiplicatorPack.forcePointMultiplicator;
-
-        return result;
-    }
-    public int CalculateMagicanSpellsWorkload()
-    {
-        int result = 0;
-        foreach(Spell spell in SpellsBook)
-        {
-            result += spell.CalculateWorkLoad();
-        }
-        return result;
-    }
-
+    /// <summary>
+    /// Получить строку данных для этого мага
+    /// </summary>
+    /// <returns></returns>
     public string GetSaveString()
     {
         string result = string.Empty;
@@ -222,8 +270,9 @@ public class Magican
 
         foreach (var item in SpellsBook)
         {
-            result += item.GetSaveString() + FileAccessUtility.stringSeparator;
+            result += item.GetDataString() + FileAccessUtility.stringSeparator;
         }
         return result;
     }
+    #endregion
 }

@@ -38,7 +38,7 @@ public class ChangeForceEffectUIItem : MonoBehaviour
         }
         int forcePoints = value;
         ForceField.text = forcePoints.ToString();
-        changeForceEffect.forcePoints = forcePoints;
+        changeForceEffect.forceOffset = forcePoints;
         UpdateItemData();
         spellEffectEditorPanel.RebuildRunes();
     }
@@ -57,7 +57,7 @@ public class ChangeForceEffectUIItem : MonoBehaviour
     public void UpdateItemData()
     {
         requareForceText.text = "Нагрузка: " + changeForceEffect.CalculateReqareForceForThisEffectOnly();
-        ForceField.text = changeForceEffect.forcePoints.ToString();
+        ForceField.text = changeForceEffect.forceOffset.ToString();
         targetDropdown.value = (int)changeForceEffect.effectTargetType;
         spellEffectEditorPanel.Center.spellEditor.DrawSpellForceRequared();
     }

@@ -1,27 +1,51 @@
 using UnityEngine;
 
+/// <summary>
+/// Эффект смещает занчение точности, которую маг прибавляет к броскам атаки
+/// </summary>
 public class ChangeAccuracyEffect : SpellEffect
 {
-    public int accuracyPoints = 1;
+    /// <summary>
+    /// Смещение точности
+    /// </summary>
+    public int accuracyOffset = 1;
 
     public ChangeAccuracyEffect()
     {
-        if (accuracyPoints > 0)
+        if (accuracyOffset > 0)
         {
-            _description = "Повышает точность цели на " + accuracyPoints;
+            _description = "Повышает точность цели на " + accuracyOffset;
         }
         else
         {
-            _description = "Понижает точность цели на " + Mathf.Abs(accuracyPoints);
+            _description = "Понижает точность цели на " + Mathf.Abs(accuracyOffset);
         }
     }
 
-    public override int CalculateReqareForce()
+    /// <summary>
+    /// Применить эффект на цель - добавить или понизить добавочную точность мага
+    /// </summary>
+    /// <param name="user">Заклинатель</param>
+    /// <param name="target">Цель</param>
+    /// <param name="effectPercent">Концентрация эффекта</param>
+    public override void UseEffectToTarget(Magican user, Magican target, int effectPercent)
+    {
+        if (effectTargetType == EffectTargetType.User)
+        {
+            user.ChangeAccuracty(GetEffectValue(accuracyOffset, effectPercent));
+        }
+        else
+        {
+            target.ChangeAccuracty(GetEffectValue(accuracyOffset, effectPercent));
+        }
+    }
+
+    public override int CalculateWorkLoad()
     {
         int result = CalculateReqareForceForThisEffectOnly();
         if (insideEffect != null)
         {
-            result += insideEffect.CalculateReqareForce();
+            result += insideEffect.CalculateWorkLoad();
         }
         return result;
     }
@@ -30,41 +54,29 @@ public class ChangeAccuracyEffect : SpellEffect
     {
         int result = 0;
 
-        if (accuracyPoints > 0)
+        if (accuracyOffset > 0)
         {
-            result = accuracyPoints * StatsMultiplicatorPack.changeAccuracyPointMultiplicator;
+            result = accuracyOffset * StatsMultiplicatorPack.changeAccuracyPointMultiplicator;
         }
         else
         {
             if (effectTargetType == EffectTargetType.Target)
             {
-                result = Mathf.Abs(accuracyPoints) * StatsMultiplicatorPack.changeAccuracyPointMultiplicator;
+                result = Mathf.Abs(accuracyOffset) * StatsMultiplicatorPack.changeAccuracyPointMultiplicator;
             }
             else
             {
-                result = accuracyPoints * StatsMultiplicatorPack.changeAccuracyPointMultiplicator;
+                result = accuracyOffset * StatsMultiplicatorPack.changeAccuracyPointMultiplicator;
             }
         }
         return result;
     }
 
-    public override void UseEffectToTarget(Magican user, Magican target, int effectPercent)
-    {
-        if (effectTargetType == EffectTargetType.User)
-        {
-            user.ChangeAccuracty(GetEffectValue(accuracyPoints, effectPercent));
-        }
-        else
-        {
-            target.ChangeAccuracty(GetEffectValue(accuracyPoints, effectPercent));
-        }
-    }
-
-    public override string GetSaveString()
+    public override string GetDataString()
     {
         string result = string.Empty;
 
-        result += "[" + nameof(ChangeAccuracyEffect) + "|" + accuracyPoints + ","
+        result += "[" + nameof(ChangeAccuracyEffect) + "|" + accuracyOffset + ","
             + (effectTargetType == EffectTargetType.Target ? 1 : 0) + "]";
 
         SpellEffect buferEffect = this;
@@ -72,7 +84,7 @@ public class ChangeAccuracyEffect : SpellEffect
         if (buferEffect.insideEffect != null)
         {
             buferEffect = buferEffect.insideEffect;
-            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetSaveString();
+            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetDataString();
         }
         return result;
     }

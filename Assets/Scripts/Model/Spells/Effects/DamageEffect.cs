@@ -1,9 +1,11 @@
-using UnityEngine;
-
-[System.Serializable]
+/// <summary>
+/// Эффект наносит цели урон, уменьшая (до нуля) количество очков здоровья
+/// </summary>
 public class DamageEffect : SpellEffect
 {
-    [Min(1)]
+    /// <summary>
+    /// Урон
+    /// </summary>
     public int damage;
 
     public DamageEffect()
@@ -11,12 +13,37 @@ public class DamageEffect : SpellEffect
         _description = "Наносит цели " + damage + " урона";
     }
 
-    public override int CalculateReqareForce()
+    /// <summary>
+    /// Применить эффект на цель - нанести ей урон
+    /// </summary>
+    /// <param name="user">Заклинатель</param>
+    /// <param name="target">Цель</param>
+    /// <param name="effectPercent">Концентрация эффекта</param>
+    public override void UseEffectToTarget(Magican user, Magican target, int effectPercent)
+    {
+        if (effectTargetType == EffectTargetType.User)
+        {
+            user.Health -= GetEffectValue(damage, effectPercent);
+        }
+        else
+        {
+            if (target == user)
+            {
+                target.Health -= GetEffectValue(damage, effectPercent);
+            }
+            else
+            {
+                user.Health -= GetEffectValue(damage, effectPercent);
+            }
+        }
+    }
+
+    public override int CalculateWorkLoad()
     {
         int result = CalculateReqareForceForThisEffectOnly();
         if (insideEffect != null)
         {
-            result += insideEffect.CalculateReqareForce();
+            result += insideEffect.CalculateWorkLoad();
         }
         return result;
     }
@@ -35,26 +62,7 @@ public class DamageEffect : SpellEffect
         return result;
     }
 
-    public override void UseEffectToTarget(Magican user, Magican target, int effectPercent)
-    {
-        if(effectTargetType == EffectTargetType.User)
-        {
-            user.Health -= SpellEffect.GetEffectValue(damage, effectPercent);
-        }
-        else
-        {
-            if(target == user)
-            {
-                target.Health -= GetEffectValue(damage, effectPercent);
-            }
-            else
-            {
-                user.Health -= GetEffectValue(damage, effectPercent);
-            }
-        }
-    }
-
-    public override string GetSaveString()
+    public override string GetDataString()
     {
         string result = string.Empty;
 
@@ -66,7 +74,7 @@ public class DamageEffect : SpellEffect
         if (buferEffect.insideEffect != null)
         {
             buferEffect = buferEffect.insideEffect;
-            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetSaveString();
+            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetDataString();
         }
         return result;
     }

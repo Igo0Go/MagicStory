@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.Experimental.GraphView;
 
 /// <summary>
 /// Класс-шаблон для всех заклинаний
@@ -7,6 +6,8 @@ using UnityEditor.Experimental.GraphView;
 [Serializable]
 public class Spell
 {
+    #region Характеристики
+
     /// <summary>
     /// Название заклинания
     /// </summary>
@@ -59,10 +60,17 @@ public class Spell
     /// </summary>
     public SpellEffect Effect { get; set; }
 
+    #endregion
+
+    /// <summary>
+    /// Использовать заклинание
+    /// </summary>
+    /// <param name="user">Заклинатель</param>
+    /// <param name="target">Цель</param>
     public void UseSpell(Magican user, Magican target)
     {
         (Magican target, int percent) targetPack = 
-            SpellForm.GetTarget(target, user.Accuracy, user.CurrentSpell.SuccessPercent);
+            SpellForm.GetTargetEndEffectPercent(target, user.Accuracy, user.CurrentSpell.SuccessPercent);
 
         if(targetPack.target != null)
         {
@@ -70,6 +78,10 @@ public class Spell
         }
     }
 
+    /// <summary>
+    /// Рассчитать нагрузку заклинания в единицах маны
+    /// </summary>
+    /// <returns>Количество маны, требуемое для использования заклинания</returns>
     public int CalculateWorkLoad()
     {
 
@@ -83,7 +95,12 @@ public class Spell
 
     }
 
-    public string GetSaveString()
+    #region Работа с данными
+    /// <summary>
+    /// Получить строку данных из этого заклинания
+    /// </summary>
+    /// <returns>строка данных с информацией о заклинании</returns>
+    public string GetDataString()
     {
         string result = "{";
 
@@ -93,18 +110,22 @@ public class Spell
         result += nameof(SuccessPercent) + ":" + SuccessPercent + FileAccessUtility.stringPartSeparator;
         result += nameof(SpellForm) + ":" + SpellForm.GetSaveString() + FileAccessUtility.stringPartSeparator;
         result += nameof(Effect) + (Effect == null ? "null" : 
-            (":" + Effect.GetSaveString() + FileAccessUtility.stringPartSeparator));
+            (":" + Effect.GetDataString() + FileAccessUtility.stringPartSeparator));
         return result + "}";
     }
-
-    public static Spell GetSpellByInfo(string info)
+    /// <summary>
+    /// Преобразовать строку данных в экземпляр заклинания
+    /// </summary>
+    /// <param name="dataString">Строка данных с информацией о заклинании</param>
+    /// <returns>Экземпляр заклинание</returns>
+    public static Spell GetSpellByInfo(string dataString)
     {
         Spell spell = new Spell();
 
         char[] c = { '{', '}' };
-        info = info.Split(c, StringSplitOptions.RemoveEmptyEntries)[0];
+        dataString = dataString.Split(c, StringSplitOptions.RemoveEmptyEntries)[0];
 
-        string[] SpellProperties = info.Split(FileAccessUtility.stringPartSeparator,
+        string[] SpellProperties = dataString.Split(FileAccessUtility.stringPartSeparator,
             StringSplitOptions.RemoveEmptyEntries);
 
         foreach (string SpellProperty in SpellProperties)
@@ -177,6 +198,11 @@ public class Spell
 
         return spell;
     }
+    /// <summary>
+    /// Преобразовать строку с информацией об эффекте в экземпляр
+    /// </summary>
+    /// <param name="effectString">строка с информацией об эффекте</param>
+    /// <returns>Экземпляр эффекта заклинания</returns>
     private static SpellEffect GetSpellEffect(string effectString)
     {
         string[] strings = effectString.Split("|", StringSplitOptions.RemoveEmptyEntries);
@@ -203,7 +229,7 @@ public class Spell
         {
             ChangeAccuracyEffect changeAccuracyEffect = new ChangeAccuracyEffect();
             string[] values = strings[1].Split(',');
-            changeAccuracyEffect.accuracyPoints = int.Parse(values[0]);
+            changeAccuracyEffect.accuracyOffset = int.Parse(values[0]);
             changeAccuracyEffect.effectTargetType = (int.Parse(values[1]) == 1 ?
                 EffectTargetType.Target : EffectTargetType.User);
             return changeAccuracyEffect;
@@ -212,7 +238,7 @@ public class Spell
         {
             ChangeForceEffect changeForceEffect = new ChangeForceEffect();
             string[] values = strings[1].Split(',');
-            changeForceEffect.forcePoints = int.Parse(values[0]);
+            changeForceEffect.forceOffset = int.Parse(values[0]);
             changeForceEffect.effectTargetType = (int.Parse(values[1]) == 1 ?
                 EffectTargetType.Target : EffectTargetType.User);
             return changeForceEffect;
@@ -222,7 +248,7 @@ public class Spell
             ChangeInitiativeEffect ChangeInitiativeEffect
                 = new ChangeInitiativeEffect();
             string[] values = strings[1].Split(',');
-            ChangeInitiativeEffect.initiativePoints = int.Parse(values[0]);
+            ChangeInitiativeEffect.initiativeOffset = int.Parse(values[0]);
             ChangeInitiativeEffect.effectTargetType = (int.Parse(values[1]) == 1 ?
                 EffectTargetType.Target : EffectTargetType.User);
             return ChangeInitiativeEffect;
@@ -261,4 +287,5 @@ public class Spell
 
         return null;
     }
+    #endregion
 }

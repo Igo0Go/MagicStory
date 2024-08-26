@@ -1,6 +1,15 @@
+/// <summary>
+/// Эффект задаёт цели определённый статус на указанное количество ходов
+/// </summary>
 public class SetStateEffect : SpellEffect
 {
+    /// <summary>
+    /// Статус
+    /// </summary>
     public MagicanState state;
+    /// <summary>
+    /// Длительность статуса в ходах
+    /// </summary>
     public int duration;
 
     public SetStateEffect()
@@ -25,12 +34,30 @@ public class SetStateEffect : SpellEffect
         }
     }
 
-    public override int CalculateReqareForce()
+    /// <summary>
+    /// Применить эффект на цель - задать ей указанный статус на указанное количество ходов
+    /// </summary>
+    /// <param name="user">Заклинатель</param>
+    /// <param name="target">Цель</param>
+    /// <param name="effectPercent">Концентрация эффекта</param>
+    public override void UseEffectToTarget(Magican user, Magican target, int effectPercent)
+    {
+        if (effectTargetType == EffectTargetType.User)
+        {
+            user.SetState(state, duration);
+        }
+        else
+        {
+            target.SetState(state, duration);
+        }
+    }
+
+    public override int CalculateWorkLoad()
     {
         int result = CalculateReqareForceForThisEffectOnly();
         if (insideEffect != null)
         {
-            result += insideEffect.CalculateReqareForce();
+            result += insideEffect.CalculateWorkLoad();
         }
         return result;
     }
@@ -49,19 +76,7 @@ public class SetStateEffect : SpellEffect
         return result;
     }
 
-    public override void UseEffectToTarget(Magican user, Magican target, int effectPercent)
-    {
-        if (effectTargetType == EffectTargetType.User)
-        {
-            user.SetState(state, duration);
-        }
-        else
-        {
-            target.SetState(state, duration);
-        }
-    }
-
-    public override string GetSaveString()
+    public override string GetDataString()
     {
         string result = string.Empty;
 
@@ -73,7 +88,7 @@ public class SetStateEffect : SpellEffect
         if (buferEffect.insideEffect != null)
         {
             buferEffect = buferEffect.insideEffect;
-            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetSaveString();
+            result += FileAccessUtility.propertyPartSeparator + buferEffect.GetDataString();
         }
         return result;
     }

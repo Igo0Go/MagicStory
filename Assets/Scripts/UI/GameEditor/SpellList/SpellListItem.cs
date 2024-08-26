@@ -87,17 +87,17 @@ public class SpellListItem : MonoBehaviour
         if(spellEffect is ChangeAccuracyEffect changeAccuracy)
         {
             effectItem.effectIcon.sprite = SpellRunnesHolder.FindEffectItem(EffectType.LowerAccuracy).sprite;
-            effectItem.effectText.text = changeAccuracy.accuracyPoints.ToString();
+            effectItem.effectText.text = changeAccuracy.accuracyOffset.ToString();
         }
         else if(spellEffect is ChangeForceEffect changeForce)
         {
             effectItem.effectIcon.sprite = SpellRunnesHolder.FindEffectItem(EffectType.LowerForce).sprite;
-            effectItem.effectText.text = changeForce.forcePoints.ToString();
+            effectItem.effectText.text = changeForce.forceOffset.ToString();
         }
         else if(spellEffect is ChangeInitiativeEffect initiativeEffect)
         {
             effectItem.effectIcon.sprite = SpellRunnesHolder.FindEffectItem(EffectType.ImproveInitiative).sprite;
-            effectItem.effectText.text = initiativeEffect.initiativePoints.ToString();
+            effectItem.effectText.text = initiativeEffect.initiativeOffset.ToString();
         }
         else if(spellEffect is DamageEffect damageEffect)
         {
